@@ -429,7 +429,43 @@ background: #94a3b8;
 <span class='text-[10px] text-blue-800 font-bold uppercase tracking-widest block mb-1'>Nilai Anda</span>
 <span class='text-4xl font-bold text-blue-900 font-robo' id='success-score-value'>100</span>
 </div>
+<div class='space-y-3'>
+<button class='w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-emerald-900/10 transition-all border-0 cursor-pointer flex items-center justify-center gap-2' id='btn-show-review' onclick='openLatestReview()'><i class='fas fa-clipboard-check'></i> LIHAT BENAR / SALAH</button>
 <button class='w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-blue-900/10 transition-all border-0 cursor-pointer' onclick='backToDashboardFromSuccess()'>KEMBALI KE DASHBOARD</button>
+</div>
+</div>
+</div>
+<!-- ========================================== -->
+<!-- 8. MODAL REVIEW JAWABAN -->
+<!-- ========================================== -->
+<div class='fixed inset-0 bg-slate-100 z-[1100] hidden overflow-y-auto' id='modal-review'>
+<div class='max-w-4xl mx-auto px-4 py-8 sm:py-12'>
+<div class='bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden'>
+<div class='bg-blue-900 text-white p-6 sm:p-8'>
+<div class='flex flex-col sm:flex-row sm:items-center justify-between gap-4'>
+<div>
+<span class='text-[10px] font-bold uppercase tracking-widest text-cyan-300'>Pembahasan Hasil Ujian</span>
+<h3 class='font-robo font-bold text-2xl mt-1' id='review-exam-title'>Hasil Ujian</h3>
+</div>
+<div class='bg-white/10 border border-white/20 rounded-2xl px-5 py-3 text-center shrink-0'>
+<span class='text-[10px] uppercase tracking-widest text-blue-100 block'>Nilai</span>
+<strong class='text-3xl font-robo' id='review-score-value'>0</strong>
+</div>
+</div>
+</div>
+<div class='p-5 sm:p-8'>
+<div class='grid grid-cols-3 gap-3 mb-7'>
+<div class='bg-emerald-50 border border-emerald-100 rounded-2xl p-4 text-center'><strong class='text-2xl text-emerald-700 block' id='review-correct-count'>0</strong><span class='text-[10px] font-bold text-emerald-700 uppercase'>Benar</span></div>
+<div class='bg-rose-50 border border-rose-100 rounded-2xl p-4 text-center'><strong class='text-2xl text-rose-700 block' id='review-wrong-count'>0</strong><span class='text-[10px] font-bold text-rose-700 uppercase'>Salah</span></div>
+<div class='bg-slate-50 border border-slate-200 rounded-2xl p-4 text-center'><strong class='text-2xl text-slate-700 block' id='review-unanswered-count'>0</strong><span class='text-[10px] font-bold text-slate-600 uppercase'>Kosong</span></div>
+</div>
+<div class='space-y-5' id='review-question-list'></div>
+<div class='flex flex-col sm:flex-row gap-3 mt-8 pt-6 border-t border-slate-200'>
+<button class='flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3.5 px-5 rounded-xl border-0 cursor-pointer' onclick='backToScoreFromReview()'><i class='fas fa-arrow-left mr-1'></i> KEMBALI KE NILAI</button>
+<button class='flex-1 bg-blue-800 hover:bg-blue-900 text-white font-bold py-3.5 px-5 rounded-xl border-0 cursor-pointer' onclick='backToDashboardFromReview()'>KEMBALI KE DASHBOARD</button>
+</div>
+</div>
+</div>
 </div>
 </div>
 <!-- ========================================== -->
@@ -492,6 +528,7 @@ background: #94a3b8;
     let currentQuestions = [];  // Soal ujian yang sedang dikerjakan
     let currentAnswers = {};    // Kunci: questionId, Nilai: jawaban terpilih
     let doubtfulFlags = {};     // Kunci: questionId, Nilai: boolean
+    let latestReviewData = null;// Snapshot hasil yang baru selesai dikirim
     let activeQuestionIndex = 0;// Indeks soal yang aktif (0-based)
     let countdownTimer = null;  // Timer interval ID
     let timeRemainingSeconds = 0;// Waktu tersisa dalam detik
@@ -928,6 +965,7 @@ background: #94a3b8;
             const isLocalDownloaded = localStorage.getItem(`cbt_questions_${exam.exam_id}`) !== null;
             const answersLocal = localStorage.getItem(`cbt_answers_${exam.exam_id}`);
             const isCompletedLocal = localStorage.getItem(`cbt_status_${exam.exam_id}`) === "SUBMITTED";
+            const hasSavedReview = localStorage.getItem(`cbt_review_${exam.exam_id}`) !== null;
 
             // Status
             let statusBadge = "";
@@ -939,9 +977,15 @@ background: #94a3b8;
             if (exam.score !== undefined && exam.score !== null && exam.score >= 0) {
                 // Sudah disubmit ke server
                 statusBadge = `<span class='bg-emerald-100 text-emerald-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-check-circle mr-1'></i>Selesai (Skor: ${exam.score})</span>`;
-                btnClass = "bg-slate-200 text-slate-400 cursor-not-allowed";
-                btnText = "Selesai";
-                btnAction = "";
+                if (hasSavedReview) {
+                    btnClass = "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md";
+                    btnText = "Lihat Hasil";
+                    btnAction = `showSavedReview('${exam.exam_id}')`;
+                } else {
+                    btnClass = "bg-slate-200 text-slate-400 cursor-not-allowed";
+                    btnText = "Selesai";
+                    btnAction = "";
+                }
             } else if (isCompletedLocal) {
                 // Sudah selesai tapi offline sync belum dilakukan
                 statusBadge = `<span class='bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-sync-alt mr-1'></i>Siap Sinkron (Offline)</span>`;
@@ -1454,6 +1498,20 @@ background: #94a3b8;
         $('#modal-submit').addClass('hidden');
     }
 
+    function normalizeAnswerForCheck(value, questionType) {
+        const raw = String(value || "").trim().toLowerCase();
+        if (String(questionType || "").toLowerCase() === "kompleks") {
+            return raw.split(/[,;|]/).map(item => item.trim()).filter(Boolean).sort().join(',');
+        }
+        return raw.replace(/\s+/g, "");
+    }
+
+    function isAnswerCorrect(question, studentAnswer) {
+        const correctKey = normalizeAnswerForCheck(question.kunci, question.tipe);
+        const studentKey = normalizeAnswerForCheck(studentAnswer, question.tipe);
+        return correctKey !== "" && correctKey === studentKey;
+    }
+
     // Kalkulasi lokal nilai di RAM Client
     function calculateLocalScore() {
         let correct = 0;
@@ -1461,10 +1519,7 @@ background: #94a3b8;
         if (total === 0) return 0;
 
         currentQuestions.forEach(q => {
-            const correctKey = String(q.kunci || "").trim().toLowerCase().replace(/\s+/g, "");
-            const studentKey = String(currentAnswers[q.id] || "").trim().toLowerCase().replace(/\s+/g, "");
-            
-            if (correctKey !== "" && correctKey === studentKey) {
+            if (isAnswerCorrect(q, currentAnswers[q.id])) {
                 correct++;
             }
         });
@@ -1537,7 +1592,8 @@ background: #94a3b8;
                 const data = JSON.parse(cleanResponse);
                 if (data.status === "success") {
                     isSyncSuccess = true;
-                    finalScore = parseInt(data.nilai) || localScore;
+                    const serverScore = Number(data.nilai);
+                    finalScore = Number.isFinite(serverScore) ? serverScore : localScore;
                 }
             } catch (je) {
                 // Fallback: Jika HTTP request berhasil terkirim namun parsing JSON gagal karena google redirect page wrapping,
@@ -1546,6 +1602,7 @@ background: #94a3b8;
             }
 
             if (isSyncSuccess) {
+                saveReviewSnapshot(currentExam.exam_id, currentExam.title, currentExam.subject, currentQuestions, answersPayload, finalScore);
                 // Bersihkan cache pengerjaan lokal setelah sukses
                 clearLocalStorageExamData(currentExam.exam_id);
                 
@@ -1603,9 +1660,7 @@ background: #94a3b8;
         let correct = 0;
         const total = questions.length;
         questions.forEach(q => {
-            const correctKey = String(q.kunci || "").trim().toLowerCase().replace(/\s+/g, "");
-            const studentKey = String(answers[q.id] || "").trim().toLowerCase().replace(/\s+/g, "");
-            if (correctKey !== "" && correctKey === studentKey) correct++;
+            if (isAnswerCorrect(q, answers[q.id])) correct++;
         });
         const localScore = total > 0 ? Math.round((correct / total) * 100) : 0;
 
@@ -1642,7 +1697,10 @@ background: #94a3b8;
 
             if (isSyncSuccess) {
                 showToast("Sinkronisasi jawaban tertunda berhasil! Data tersimpan di server.", true);
+                const syncedExam = examsList.find(item => item.exam_id === examId) || {};
+                saveReviewSnapshot(examId, syncedExam.title || "Hasil Ujian", syncedExam.subject || "", questions, answers, localScore);
                 clearLocalStorageExamData(examId);
+                showSuccessModal(localScore);
                 refreshExamsList();
             } else {
                 showToast("Sinkronisasi gagal. Coba lagi beberapa saat.", false);
@@ -1666,7 +1724,128 @@ background: #94a3b8;
     // Modal Sukses & Skor
     function showSuccessModal(score) {
         document.getElementById('success-score-value').innerText = score;
+        document.getElementById('btn-show-review').classList.toggle('hidden', !latestReviewData);
         $('#modal-success').removeClass('hidden');
+    }
+
+    function saveReviewSnapshot(examId, title, subject, questions, answers, score) {
+        latestReviewData = {
+            examId: examId,
+            title: title || "Hasil Ujian",
+            subject: subject || "",
+            score: score,
+            questions: questions,
+            answers: answers,
+            savedAt: new Date().toISOString()
+        };
+        try {
+            localStorage.setItem(`cbt_review_${examId}`, JSON.stringify(latestReviewData));
+        } catch (e) {
+            console.log("Hasil tetap dapat dilihat pada sesi ini, tetapi tidak dapat disimpan permanen di browser.", e);
+        }
+    }
+
+    function optionTextForReview(question, key) {
+        const normalizedKey = String(key || "").trim().toUpperCase();
+        const optionText = question[normalizedKey.toLowerCase()];
+        return optionText ? `${normalizedKey}. ${parseBBCodeMarkup(optionText)}` : normalizedKey;
+    }
+
+    function formatAnswerForReview(question, rawAnswer) {
+        if (rawAnswer === undefined || rawAnswer === null || String(rawAnswer).trim() === "") {
+            return "Tidak dijawab";
+        }
+        if (String(question.tipe || "").toLowerCase() === "isian") {
+            return escapeHtml(String(rawAnswer));
+        }
+        return String(rawAnswer).split(/[,;|]/).map(key => optionTextForReview(question, key)).join('<br>');
+    }
+
+    function renderReview(reviewData) {
+        const questions = Array.isArray(reviewData.questions) ? reviewData.questions : [];
+        const answers = reviewData.answers || {};
+        let correct = 0;
+        let wrong = 0;
+        let unanswered = 0;
+
+        const cards = questions.map((q, index) => {
+            const studentAnswer = answers[q.id] || "";
+            const isEmpty = String(studentAnswer).trim() === "";
+            const isCorrect = isAnswerCorrect(q, studentAnswer);
+            if (isEmpty) unanswered++;
+            else if (isCorrect) correct++;
+            else wrong++;
+
+            const cardClass = isCorrect ? "border-emerald-100 bg-emerald-50/40" : "border-rose-100 bg-rose-50/40";
+            const headerClass = isCorrect ? "bg-emerald-50 border-emerald-100" : "bg-rose-50 border-rose-100";
+            const badgeClass = isCorrect ? "text-emerald-700 border-emerald-200" : "text-rose-700 border-rose-200";
+            const answerClass = isCorrect ? "text-emerald-700" : "text-rose-700";
+            const statusText = isCorrect ? "BENAR" : (isEmpty ? "TIDAK DIJAWAB" : "SALAH");
+            const statusIcon = isCorrect ? "fa-check-circle" : "fa-times-circle";
+
+            return `
+                <article class='border-2 ${cardClass} rounded-2xl overflow-hidden'>
+                    <div class='flex items-center justify-between gap-3 px-5 py-3 border-b ${headerClass}'>
+                        <strong class='text-sm text-slate-800'>Soal ${index + 1}</strong>
+                        <span class='text-[10px] font-bold ${badgeClass} bg-white border rounded-full px-3 py-1'><i class='fas ${statusIcon} mr-1'></i>${statusText}</span>
+                    </div>
+                    <div class='p-5'>
+                        <div class='text-sm text-slate-800 leading-relaxed mb-5 math-tex'>${parseBBCodeMarkup(q.pertanyaan)}</div>
+                        <div class='grid sm:grid-cols-2 gap-3 text-sm'>
+                            <div class='bg-white border border-slate-200 rounded-xl p-4'>
+                                <span class='text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1'>Jawaban Anda</span>
+                                <div class='font-semibold ${answerClass}'>${formatAnswerForReview(q, studentAnswer)}</div>
+                            </div>
+                            <div class='bg-white border border-emerald-200 rounded-xl p-4'>
+                                <span class='text-[10px] font-bold uppercase tracking-wider text-slate-400 block mb-1'>Jawaban Benar</span>
+                                <div class='font-semibold text-emerald-700'>${formatAnswerForReview(q, q.kunci)}</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>`;
+        }).join('');
+
+        document.getElementById('review-exam-title').innerText = reviewData.title || "Hasil Ujian";
+        document.getElementById('review-score-value').innerText = reviewData.score ?? 0;
+        document.getElementById('review-correct-count').innerText = correct;
+        document.getElementById('review-wrong-count').innerText = wrong;
+        document.getElementById('review-unanswered-count').innerText = unanswered;
+        document.getElementById('review-question-list').innerHTML = cards || "<div class='text-center text-slate-500 py-8'>Data soal tidak tersedia.</div>";
+        document.getElementById('success-score-value').innerText = reviewData.score ?? 0;
+        document.getElementById('btn-show-review').classList.remove('hidden');
+
+        if (window.MathJax && window.MathJax.typeset) window.MathJax.typeset();
+    }
+
+    function openLatestReview() {
+        if (!latestReviewData) return;
+        renderReview(latestReviewData);
+        $('#modal-success').addClass('hidden');
+        $('#modal-review').removeClass('hidden');
+        document.getElementById('modal-review').scrollTop = 0;
+    }
+
+    function showSavedReview(examId) {
+        try {
+            const saved = localStorage.getItem(`cbt_review_${examId}`);
+            if (!saved) return showToast("Rincian jawaban tidak tersedia pada perangkat ini.", false);
+            latestReviewData = JSON.parse(saved);
+            renderReview(latestReviewData);
+            $('#modal-review').removeClass('hidden');
+            document.getElementById('modal-review').scrollTop = 0;
+        } catch (e) {
+            showToast("Rincian jawaban tidak dapat dibuka.", false);
+        }
+    }
+
+    function backToScoreFromReview() {
+        $('#modal-review').addClass('hidden');
+        $('#modal-success').removeClass('hidden');
+    }
+
+    function backToDashboardFromReview() {
+        $('#modal-review').addClass('hidden');
+        backToDashboardFromSuccess();
     }
 
     function backToDashboardFromSuccess() {
