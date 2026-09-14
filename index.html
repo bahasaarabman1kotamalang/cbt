@@ -965,7 +965,6 @@ background: #94a3b8;
             const isLocalDownloaded = localStorage.getItem(`cbt_questions_${exam.exam_id}`) !== null;
             const answersLocal = localStorage.getItem(`cbt_answers_${exam.exam_id}`);
             const isCompletedLocal = localStorage.getItem(`cbt_status_${exam.exam_id}`) === "SUBMITTED";
-            const hasSavedReview = localStorage.getItem(`cbt_review_${exam.exam_id}`) !== null;
 
             // Status
             let statusBadge = "";
@@ -977,15 +976,9 @@ background: #94a3b8;
             if (exam.score !== undefined && exam.score !== null && exam.score >= 0) {
                 // Sudah disubmit ke server
                 statusBadge = `<span class='bg-emerald-100 text-emerald-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-check-circle mr-1'></i>Selesai (Skor: ${exam.score})</span>`;
-                if (hasSavedReview) {
-                    btnClass = "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md";
-                    btnText = "Lihat Hasil";
-                    btnAction = `showSavedReview('${exam.exam_id}')`;
-                } else {
-                    btnClass = "bg-slate-200 text-slate-400 cursor-not-allowed";
-                    btnText = "Selesai";
-                    btnAction = "";
-                }
+                btnClass = "bg-emerald-600 hover:bg-emerald-700 text-white shadow-md";
+                btnText = "Lihat Hasil";
+                btnAction = `showCompletedExamReview('${exam.exam_id}', ${Number(exam.score) || 0})`;
             } else if (isCompletedLocal) {
                 // Sudah selesai tapi offline sync belum dilakukan
                 statusBadge = `<span class='bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-sync-alt mr-1'></i>Siap Sinkron (Offline)</span>`;
@@ -1557,6 +1550,10 @@ background: #94a3b8;
             answersPayload[q.id] = currentAnswers[q.id] || "";
         });
 
+        // Simpan snapshot sebelum proses jaringan agar rincian tidak hilang ketika
+        // cache pengerjaan dibersihkan setelah pengiriman berhasil.
+        saveReviewSnapshot(currentExam.exam_id, currentExam.title, currentExam.subject, currentQuestions, answersPayload, localScore);
+
         // Identifikasi perangkat browser
         const browserAgent = navigator.userAgent;
 
@@ -1724,7 +1721,7 @@ background: #94a3b8;
     // Modal Sukses & Skor
     function showSuccessModal(score) {
         document.getElementById('success-score-value').innerText = score;
-        document.getElementById('btn-show-review').classList.toggle('hidden', !latestReviewData);
+        document.getElementById('btn-show-review').classList.remove('hidden');
         $('#modal-success').removeClass('hidden');
     }
 
@@ -1818,7 +1815,20 @@ background: #94a3b8;
     }
 
     function openLatestReview() {
-        if (!latestReviewData) return;
+        if (!latestReviewData && currentExam && currentQuestions.length) {
+            saveReviewSnapshot(
+                currentExam.exam_id,
+                currentExam.title,
+                currentExam.subject,
+                currentQuestions,
+                currentAnswers,
+                calculateLocalScore()
+            );
+        }
+        if (!latestReviewData) {
+            showToast("Rincian jawaban belum tersedia. Silakan buka melalui tombol Lihat Hasil di dashboard.", false);
+            return;
+        }
         renderReview(latestReviewData);
         $('#modal-success').addClass('hidden');
         $('#modal-review').removeClass('hidden');
@@ -1836,6 +1846,59 @@ background: #94a3b8;
         } catch (e) {
             showToast("Rincian jawaban tidak dapat dibuka.", false);
         }
+    }
+
+    function parseStoredAnswers(value) {
+        if (!value) return null;
+        if (typeof value === 'object' && !Array.isArray(value)) return value;
+        if (typeof value === 'string') {
+            try {
+                const parsed = JSON.parse(value);
+                return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : null;
+            } catch (e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+    async function showCompletedExamReview(examId, score) {
+        const saved = localStorage.getItem(`cbt_review_${examId}`);
+        if (saved) {
+            showSavedReview(examId);
+            return;
+        }
+
+        const exam = examsList.find(item => item.exam_id === examId) || {};
+        const examAnswers = parseStoredAnswers(exam.jawaban || exam.answers || exam.student_answers || exam.studentAnswers);
+        showToast("Mengambil rincian hasil ujian...", true);
+
+        const actions = ['getExamResult', 'getExam'];
+        for (const action of actions) {
+            try {
+                const url = `${schoolInfo.url_gas}?action=${action}&examId=${encodeURIComponent(examId)}&nisn=${encodeURIComponent(studentSession.nisn)}`;
+                const response = await fetch(url);
+                const data = await response.json();
+                if (data.status !== "success") continue;
+
+                const source = data.data || data;
+                const questions = source.questions || data.questions || [];
+                const answers = parseStoredAnswers(
+                    source.jawaban || source.answers || source.student_answers || source.studentAnswers ||
+                    data.jawaban || data.answers || data.student_answers || data.studentAnswers
+                ) || examAnswers;
+
+                if (Array.isArray(questions) && questions.length && answers) {
+                    saveReviewSnapshot(examId, exam.title || source.title || "Hasil Ujian", exam.subject || source.subject || "", questions, answers, score);
+                    showSavedReview(examId);
+                    return;
+                }
+            } catch (e) {
+                console.log(`Rincian hasil melalui ${action} tidak tersedia.`, e);
+            }
+        }
+
+        showToast("Rincian jawaban lama tidak ditemukan. Fitur Lihat Hasil akan tersimpan otomatis untuk ujian berikutnya.", false);
     }
 
     function backToScoreFromReview() {
