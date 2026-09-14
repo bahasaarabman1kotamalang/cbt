@@ -157,7 +157,7 @@ background: #94a3b8;
 <!-- ========================================== -->
 <!-- 1. PANEL VERIFIKASI KODE AKSES SEKOLAH -->
 <!-- ========================================== -->
-<div class='min-h-screen flex items-center justify-center mung-hero px-4 py-12' id='panel-access-code'>
+<div class='min-h-screen flex items-center justify-center mung-hero px-4 py-12 hidden' id='panel-access-code'>
 <div class='w-full max-w-md glass-panel rounded-3xl p-8 animate-slide relative z-10'>
 <div class='text-center mb-8'>
 <img alt='Logo MAN 1 Kota Malang' class='h-20 w-20 mx-auto mb-4 drop-shadow-md object-contain' src='https://lh3.googleusercontent.com/d/1Uw3VpAtFNUC_lKSrN4H8GcYWKjyg_9xJ'/>
@@ -169,7 +169,7 @@ background: #94a3b8;
 <label class='text-[10px] font-bold text-blue-800 uppercase tracking-widest block mb-2'>Masukkan Kode Akses Sekolah</label>
 <div class='relative'>
 <span class='absolute left-4 top-3.5 text-slate-400'><i class='fas fa-key'></i></span>
-<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all font-bold tracking-widest uppercase text-blue-900' id='input-school-code' placeholder='MAN1MALANG' type='text'/>
+<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all font-bold tracking-widest uppercase text-blue-900' id='input-school-code' placeholder='MAN1KOTAMALANG' type='text'/>
 </div>
 </div>
 <button class='w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-blue-900/20 active:scale-[0.98] transition-all border-0 cursor-pointer flex items-center justify-center gap-2' id='btn-verify-code' onclick='verifySchoolCode()'>
@@ -185,22 +185,22 @@ background: #94a3b8;
 <!-- ========================================== -->
 <!-- 2. PANEL LOGIN SISWA -->
 <!-- ========================================== -->
-<div class='min-h-screen flex items-center justify-center mung-hero px-4 py-12 hidden' id='panel-login'>
+<div class='min-h-screen flex items-center justify-center mung-hero px-4 py-12' id='panel-login'>
 <div class='w-full max-w-md glass-panel rounded-3xl p-8 animate-slide relative z-10'>
 <div class='text-center mb-8 flex flex-col items-center justify-center'>
-<div class='w-16 h-16 bg-white border border-slate-200 rounded-2xl flex items-center justify-center mb-3 overflow-hidden p-2 shadow-sm hidden' id='login-school-logo-container'>
-<img class='w-full h-full object-contain' id='login-school-logo' src=''/>
+<div class='w-16 h-16 bg-white border border-slate-200 rounded-2xl flex items-center justify-center mb-3 overflow-hidden p-2 shadow-sm' id='login-school-logo-container'>
+<img class='w-full h-full object-contain' id='login-school-logo' src='https://lh3.googleusercontent.com/d/1Uw3VpAtFNUC_lKSrN4H8GcYWKjyg_9xJ'/>
 </div>
 <span class='inline-block bg-blue-50 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full mb-3 uppercase tracking-wider' id='login-school-name'>MAN 1 KOTA MALANG</span>
 <h1 class='font-robo font-bold text-blue-900 tracking-tighter text-2xl'>MASUK <span class='text-cyan-500'>SISWA</span></h1>
-<p class='text-xs text-slate-400 font-medium uppercase tracking-widest mt-1'>Masukkan NISN & Password Ujian</p>
+<p class='text-xs text-slate-400 font-medium uppercase tracking-widest mt-1'>Masukkan NIS & Password Ujian</p>
 </div>
 <div class='space-y-4'>
 <div>
-<label class='text-[10px] font-bold text-blue-800 uppercase tracking-widest block mb-1.5'>Nomor Induk Siswa Nasional (NISN)</label>
+<label class='text-[10px] font-bold text-blue-800 uppercase tracking-widest block mb-1.5'>NIS (Nomor Induk Siswa)</label>
 <div class='relative'>
 <span class='absolute left-4 top-3.5 text-slate-400'><i class='fas fa-user-circle'></i></span>
-<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all text-slate-800' id='login-nisn' placeholder='Masukkan NISN' type='text'/>
+<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all text-slate-800' id='login-nisn' placeholder='Masukkan NIS' type='text'/>
 </div>
 </div>
 <div>
@@ -215,12 +215,6 @@ background: #94a3b8;
 <i class='fas fa-sign-in-alt'></i> MASUK UJIAN
                     </button>
 </div>
-</div>
-<div class='flex items-center justify-between mt-6 pt-4 border-t border-slate-100'>
-<a class='text-xs text-blue-600 hover:text-blue-800 font-bold transition-all cursor-pointer' onclick='backToSchoolCode()'>
-<i class='fas fa-arrow-left mr-1'></i> Ganti Sekolah
-                </a>
-<span class='text-[10px] text-slate-400' id='login-school-code-badge'>KODE: -</span>
 </div>
 <div class='text-center mt-6 text-[11px] text-slate-500 font-medium leading-relaxed'>
                 Copyright &#169; 2026 N154Y Exambro. All Rights Reserved.<br/>
@@ -247,7 +241,7 @@ background: #94a3b8;
 <div class='flex items-center gap-6'>
 <div class='text-right hidden sm:block border-r border-blue-800/60 pr-6'>
 <div class='font-bold text-sm text-white' id='dash-student-name'>Nama Siswa</div>
-<div class='text-[11px] text-blue-300 font-mono mt-0.5' id='dash-student-details'>NISN: 00123456 | KELAS: IX</div>
+<div class='text-[11px] text-blue-300 font-mono mt-0.5' id='dash-student-details'>NIS: 00123456 | KELAS: IX</div>
 </div>
 <button class='bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border-2 border-red-500/20 hover:border-red-500 font-bold text-xs px-4 py-2.5 rounded-xl active:scale-95 transition-all cursor-pointer flex items-center gap-1.5' onclick='logoutStudent()'>
 <i class='fas fa-sign-out-alt'></i> KELUAR
@@ -265,7 +259,7 @@ background: #94a3b8;
 <i class='fas fa-user-graduate' id='profile-avatar-icon'></i>
 </div>
 <h3 class='font-bold text-blue-900 text-base leading-tight' id='profile-card-name'>Nama Siswa</h3>
-<p class='text-xs text-slate-400 font-semibold font-mono mt-1' id='profile-card-nisn'>NISN: -</p>
+<p class='text-xs text-slate-400 font-semibold font-mono mt-1' id='profile-card-nisn'>NIS: -</p>
 </div>
 <div class='space-y-4'>
 <div class='flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100'>
@@ -326,7 +320,7 @@ background: #94a3b8;
 </div>
 <div class='text-right hidden md:block'>
 <div class='font-bold text-xs text-blue-200' id='work-student-name'>Nama Siswa</div>
-<div class='text-[10px] text-blue-400 font-mono mt-0.5' id='work-student-nisn'>NISN: -</div>
+<div class='text-[10px] text-blue-400 font-mono mt-0.5' id='work-student-nisn'>NIS: -</div>
 </div>
 </div>
 </header>
@@ -622,7 +616,7 @@ background: #94a3b8;
     });
 
     // Inisialisasi & Cek Cache Sesi
-    function initApp() {
+    async function initApp() {
         try {
             const cachedSchool = localStorage.getItem('cbt_school_info');
             const cachedStudent = localStorage.getItem('cbt_student_session');
@@ -630,1693 +624,71 @@ background: #94a3b8;
             // Cek jika sedang aktif ujian (Kiosk recovery)
             const activeExamId = localStorage.getItem('cbt_active_exam_id');
 
-            if (cachedSchool) {
+            if (cachedSchool && JSON.parse(cachedSchool).code === APP_CONFIG.schoolCode) {
                 schoolInfo = JSON.parse(cachedSchool);
-                showStudentLoginPanel();
-                
-                if (cachedStudent) {
-                    studentSession = JSON.parse(cachedStudent);
-                    showDashboardPanel();
-                    
-                    if (activeExamId) {
-                        resumeActiveExam(activeExamId);
-                    }
-                }
-            } else {
-                showSchoolCodePanel();
-            }
-        } catch(e) {
-            showSchoolCodePanel();
-        }
-    }
-
-    // Tampilkan Panel Pertama (Masukkan Kode Sekolah)
-    function showSchoolCodePanel() {
-        $('#panel-access-code').removeClass('hidden');
-        $('#panel-login, #panel-dashboard, #panel-workspace').addClass('hidden');
-    }
-
-    // Tampilkan Panel Kedua (Login Siswa)
-    function showStudentLoginPanel() {
-        if (!schoolInfo) return;
-        $('#login-school-name').text(schoolInfo.nama_sekolah);
-        $('#login-school-code-badge').text(`KODE: ${schoolInfo.code}`);
-        
-        if (schoolInfo.logo && schoolInfo.logo.trim() !== "") {
-            $('#login-school-logo').attr('src', schoolInfo.logo);
-            $('#login-school-logo-container').removeClass('hidden');
-        } else {
-            $('#login-school-logo-container').addClass('hidden');
-        }
-        
-        $('#panel-login').removeClass('hidden');
-        $('#panel-access-code, #panel-dashboard, #panel-workspace').addClass('hidden');
-    }
-
-    // Tampilkan Dashboard Ujian
-    function showDashboardPanel() {
-        if (!studentSession || !schoolInfo) return;
-        
-        $('#dash-school-name').text(schoolInfo.nama_sekolah);
-        $('#dash-student-name').text(studentSession.nama);
-        $('#dash-student-details').text(`NISN: ${studentSession.nisn} | KELAS: ${studentSession.kelas}`);
-        
-        if (schoolInfo.logo && schoolInfo.logo.trim() !== "") {
-            $('#dash-school-logo').attr('src', schoolInfo.logo);
-            $('#dash-school-logo-container').removeClass('bg-white/15').addClass('bg-white p-1.5');
-        } else {
-            $('#dash-school-logo').attr('src', APP_CONFIG.logo);
-            $('#dash-school-logo-container').removeClass('bg-white p-1.5').addClass('bg-white/15 p-1');
-        }
-        
-        $('#profile-card-name').text(studentSession.nama);
-        $('#profile-card-nisn').text(`NISN: ${studentSession.nisn}`);
-        $('#profile-card-kelas').text(studentSession.kelas);
-        $('#profile-card-code').text(schoolInfo.code);
-
-        if (studentSession.foto && studentSession.foto.trim() !== "") {
-            $('#profile-avatar-container').html(`<img src="${studentSession.foto}" class="w-full h-full object-cover" />`);
-        } else {
-            $('#profile-avatar-container').html(`<i class='fas fa-user-graduate' id='profile-avatar-icon'></i>`);
-        }
-
-        $('#panel-dashboard').removeClass('hidden');
-        $('#panel-access-code, #panel-login, #panel-workspace').addClass('hidden');
-        
-        refreshExamsList();
-    }
-
-    // --- TOAST NOTIFICATION ---
-    function showToast(message, isSuccess = true) {
-        const t = document.getElementById('cbt-toast');
-        const icon = document.getElementById('cbt-toast-icon');
-        
-        document.getElementById('cbt-toast-text').innerText = message;
-        
-        if (isSuccess) {
-            icon.className = "fas fa-check-circle text-emerald-400 text-xl";
-            t.classList.remove('bg-rose-900', 'bg-rose-950');
-            t.classList.add('bg-slate-900');
-        } else {
-            icon.className = "fas fa-exclamation-triangle text-rose-400 text-xl";
-            t.classList.add('bg-rose-950');
-            t.classList.remove('bg-slate-900');
-        }
-        
-        t.classList.replace('translate-y-32', 'translate-y-0');
-        t.classList.replace('opacity-0', 'opacity-100');
-        
-        setTimeout(() => {
-            t.classList.replace('translate-y-0', 'translate-y-32');
-            t.classList.replace('opacity-100', 'opacity-0');
-        }, 4000);
-    }
-
-    // --- 1. VERIFIKASI KODE AKSES SEKOLAH (MASTER GAS) ---
-    async function verifySchoolCode() {
-        const schoolCodeInput = document.getElementById('input-school-code').value.trim();
-        if (!schoolCodeInput) {
-            showToast("Harap masukkan Kode Akses Sekolah!", false);
-            return;
-        }
-
-        const btn = document.getElementById('btn-verify-code');
-        btn.disabled = true;
-        btn.innerHTML = "<i class='fas fa-spinner fa-spin mr-1'></i> MENGHUBUNGKAN...";
-
-        try {
-            if (!apiIsConfigured()) {
-                throw new Error("URL Google Apps Script belum dikonfigurasi");
-            }
-            const url = `${MASTER_GAS_URL}?action=getSchool&code=${encodeURIComponent(schoolCodeInput)}`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data.status === "success") {
-                const schoolUrl = data.data.url_gas;
-                let logoUrl = "";
-                try {
-                    const infoUrl = `${schoolUrl}?action=getSchoolInfo`;
-                    const infoResp = await fetch(infoUrl);
-                    const infoData = await infoResp.json();
-                    if (infoData.status === "success") {
-                        logoUrl = infoData.data.logo || "";
-                    }
-                } catch (e) {
-                    console.log("Gagal memuat logo sekolah secara dinamis", e);
-                }
-
-                schoolInfo = {
-                    code: data.data.code,
-                    nama_sekolah: data.data.nama_sekolah,
-                    url_gas: schoolUrl,
-                    logo: logoUrl
-                };
+                schoolInfo.nama_sekolah = APP_CONFIG.schoolName;
+                schoolInfo.logo = schoolInfo.logo || APP_CONFIG.logo;
                 localStorage.setItem('cbt_school_info', JSON.stringify(schoolInfo));
-                
-                showToast("Kode Sekolah terverifikasi!", true);
-                showStudentLoginPanel();
             } else {
-                showToast(`Verifikasi Gagal: ${data.message}`, false);
-            }
-        } catch (e) {
-            const detail = e && e.message ? e.message : "Silakan cek internet dan deployment Web App.";
-            showToast(`Koneksi gagal: ${detail}`, false);
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = "<i class='fas fa-search'></i> VERIFIKASI SEKOLAH";
-        }
-    }
-
-    function backToSchoolCode() {
-        localStorage.removeItem('cbt_school_info');
-        localStorage.removeItem('cbt_student_session');
-        schoolInfo = null;
-        studentSession = null;
-        document.getElementById('input-school-code').value = '';
-        showSchoolCodePanel();
-    }
-
-    // --- 2. LOGIN SISWA (SCHOOL GAS) ---
-    async function submitStudentLogin() {
-        const nisn = document.getElementById('login-nisn').value.trim();
-        const password = document.getElementById('login-password').value.trim();
-
-        if (!nisn || !password) {
-            showToast("Harap masukkan NISN & Password!", false);
-            return;
-        }
-
-        if (!schoolInfo) {
-            showToast("Data sekolah hilang. Lakukan verifikasi ulang.", false);
-            showSchoolCodePanel();
-            return;
-        }
-
-        const btn = document.getElementById('btn-login-submit');
-        btn.disabled = true;
-        btn.innerHTML = "<i class='fas fa-spinner fa-spin mr-1'></i> OTENTIKASI SISWA...";
-
-        try {
-            const url = `${schoolInfo.url_gas}?action=login&nisn=${encodeURIComponent(nisn)}&password=${encodeURIComponent(password)}`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data.status === "success") {
-                studentSession = {
-                    nisn: data.data.nisn,
-                    nama: data.data.nama,
-                    kelas: data.data.kelas,
-                    foto: data.data.foto || ""
-                };
-                localStorage.setItem('cbt_student_session', JSON.stringify(studentSession));
-                
-                showToast(`Selamat datang, ${studentSession.nama}!`, true);
-                showDashboardPanel();
-            } else {
-                showToast(`Login Gagal: ${data.message}`, false);
-            }
-        } catch (e) {
-            showToast("Gagal tersambung ke server sekolah!", false);
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = "<i class='fas fa-sign-in-alt'></i> MASUK UJIAN";
-        }
-    }
-
-    function logoutStudent() {
-        localStorage.removeItem('cbt_student_session');
-        localStorage.removeItem('cbt_active_exam_id');
-        studentSession = null;
-        document.getElementById('login-nisn').value = '';
-        document.getElementById('login-password').value = '';
-        showStudentLoginPanel();
-    }
-
-    // --- 3. AMBIL DAFTAR UJIAN SEKOLAH ---
-    async function refreshExamsList() {
-        if (!studentSession || !schoolInfo) return;
-        
-        const container = document.getElementById('exam-list-container');
-        const refreshIcon = document.getElementById('refresh-icon');
-        refreshIcon.classList.add('fa-spin');
-        
-        try {
-            const url = `${schoolInfo.url_gas}?action=getExams&nisn=${encodeURIComponent(studentSession.nisn)}&kelas=${encodeURIComponent(studentSession.kelas)}`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data.status === "success") {
-                examsList = data.exams;
-                renderExams(examsList);
-            } else {
-                container.innerHTML = `<div class='bg-white p-8 text-center text-rose-500 font-bold rounded-3xl border border-slate-200/80 shadow-sm'>Gagal mengambil daftar: ${data.message}</div>`;
-            }
-        } catch (e) {
-            container.innerHTML = `<div class='bg-white p-8 text-center text-rose-500 font-bold rounded-3xl border border-slate-200/80 shadow-sm'>Koneksi database sekolah gagal. Periksa koneksi internet lab.</div>`;
-        } finally {
-            refreshIcon.classList.remove('fa-spin');
-        }
-    }
-
-    // Render Ujian ke Layar Dashboard
-    function renderExams(exams) {
-        const container = document.getElementById('exam-list-container');
-        container.innerHTML = '';
-
-        if (exams.length === 0) {
-            container.innerHTML = `<div class='bg-white p-8 text-center text-slate-400 font-bold rounded-3xl shadow-sm border border-slate-200/80'><i class='fas fa-info-circle mb-1 text-blue-800 text-lg block'></i> Belum ada jadwal ujian aktif untuk kelas Anda saat ini.</div>`;
-            return;
-        }
-
-        exams.forEach(exam => {
-            // Cek status download lokal
-            const isLocalDownloaded = localStorage.getItem(`cbt_questions_${exam.exam_id}`) !== null;
-            const answersLocal = localStorage.getItem(`cbt_answers_${exam.exam_id}`);
-            const isCompletedLocal = localStorage.getItem(`cbt_status_${exam.exam_id}`) === "SUBMITTED";
-
-            // Status
-            let statusBadge = "";
-            let btnClass = "bg-blue-800 hover:bg-blue-900 text-white shadow-lg shadow-blue-900/10";
-            let btnText = "Unduh dan Kerjakan";
-            let btnAction = `handleStartExam('${exam.exam_id}')`;
-            let needsTokenInput = false;
-
-            if (exam.score !== undefined && exam.score !== null && exam.score >= 0) {
-                // Sudah disubmit ke server
-                statusBadge = `<span class='bg-emerald-100 text-emerald-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-check-circle mr-1'></i>Selesai (Skor: ${exam.score})</span>`;
-                btnClass = "bg-slate-200 text-slate-400 cursor-not-allowed";
-                btnText = "Selesai";
-                btnAction = "";
-            } else if (isCompletedLocal) {
-                // Sudah selesai tapi offline sync belum dilakukan
-                statusBadge = `<span class='bg-blue-100 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-sync-alt mr-1'></i>Siap Sinkron (Offline)</span>`;
-                btnClass = "bg-blue-600 hover:bg-blue-700 text-white shadow-md";
-                btnText = "Kirim Jawaban";
-                btnAction = `syncPendingExamFinal('${exam.exam_id}')`;
-            } else if (answersLocal) {
-                // Sedang dikerjakan
-                statusBadge = `<span class='bg-amber-100 text-amber-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-edit mr-1'></i>Sedang Dikerjakan</span>`;
-                btnClass = "bg-amber-600 hover:bg-amber-700 text-white shadow-md shadow-amber-800/10";
-                btnText = "Lanjutkan";
-                btnAction = `resumeActiveExam('${exam.exam_id}')`;
-            } else if (isLocalDownloaded) {
-                // Siap mulai
-                statusBadge = `<span class='bg-indigo-100 text-indigo-800 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-cloud-download-alt mr-1'></i>Terunduh</span>`;
-                btnClass = "bg-blue-800 hover:bg-blue-900 text-white shadow-md shadow-blue-900/10";
-                btnText = "Mulai Ujian";
-            } else {
-                statusBadge = `<span class='bg-slate-100 text-slate-600 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase tracking-wider'><i class='fas fa-clock mr-1'></i>Tersedia</span>`;
-                if (exam.token && exam.token.trim() !== "") {
-                    needsTokenInput = true;
-                }
+                schoolInfo = await loadConfiguredSchool();
             }
 
-            const div = document.createElement('div');
-            div.className = "bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:shadow-md transition-shadow";
-            div.innerHTML = `
-                <div class='space-y-1.5'>
-                    <div class='flex items-center gap-2 flex-wrap'>
-                        <h3 class='font-bold text-slate-800 text-base leading-snug'>${exam.title}</h3>
-                        ${statusBadge}
-                    </div>
-                    <div class='flex items-center gap-4 text-xs text-slate-700 font-semibold font-mono'>
-                        <span><i class='fas fa-book text-slate-500 mr-1'></i>${exam.subject}</span>
-                        <span><i class='far fa-clock text-slate-500 mr-1'></i>${exam.duration_minutes} Menit</span>
-                        <span><i class='fas fa-list-ol text-slate-500 mr-1'></i>${exam.jml_soal} Soal</span>
-                    </div>
-                </div>
-                <div class='flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto shrink-0'>
-                    ${needsTokenInput ? `
-                        <input type="text" id="token-${exam.exam_id}" placeholder="TOKEN" class="w-full sm:w-28 text-center font-bold tracking-wider uppercase bg-slate-50 border-2 border-slate-200 rounded-2xl py-3 px-3 text-xs outline-none focus:border-blue-600 transition-colors" />
-                    ` : ''}
-                    <button class='w-full sm:w-auto font-bold text-xs px-5 py-3.5 rounded-2xl transition-all border-0 cursor-pointer active:scale-95 text-center ${btnClass}' onclick="${btnAction}">
-                        ${btnText}
-                    </button>
-                </div>
-            `;
-            container.appendChild(div);
-        });
-    }
+            showStudentLoginPanel();
 
-    // --- 4. UNDUH & MULAI UJIAN DENGAN TOKEN ---
-    async function handleStartExam(examId) {
-        const exam = examsList.find(e => e.exam_id === examId);
-        if (!exam) return;
-
-        // Cek jika butuh token
-        const needsToken = exam.token && exam.token.trim() !== "";
-        const isDownloaded = localStorage.getItem(`cbt_questions_${examId}`) !== null;
-        const answersLocal = localStorage.getItem(`cbt_answers_${examId}`);
-
-        // Jika ujian belum didownload atau belum dimulai, periksa token
-        if (!isDownloaded && !answersLocal && needsToken) {
-            const tokenInputEl = document.getElementById(`token-${examId}`);
-            const inputVal = tokenInputEl ? tokenInputEl.value.trim() : "";
-            
-            if (inputVal.toUpperCase() !== exam.token.toUpperCase().trim()) {
-                showToast("Token Ujian Salah! Silakan hubungi pengawas.", false);
-                return;
-            }
-        }
-
-        // Jalankan lembar ujian jika sudah diunduh, jika belum unduh terlebih dahulu
-        if (isDownloaded) {
-            launchExamWorkspace(examId);
-        } else {
-            const success = await downloadExamQuestions(examId);
-            if (success) {
-                launchExamWorkspace(examId);
-            }
-        }
-    }
-
-    // Download Soal Ujian (Offline cache)
-    async function downloadExamQuestions(examId) {
-        showToast("Memulai pengunduhan soal ujian...", true);
-        try {
-            const url = `${schoolInfo.url_gas}?action=getExam&examId=${encodeURIComponent(examId)}&nisn=${encodeURIComponent(studentSession.nisn)}`;
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data.status === "success") {
-                localStorage.setItem(`cbt_questions_${examId}`, JSON.stringify(data.questions));
-                showToast("Soal ujian berhasil diunduh!", true);
-                return true;
-            } else {
-                showToast(`Gagal mengunduh soal: ${data.message}`, false);
-                return false;
-            }
-        } catch (e) {
-            showToast("Unduhan gagal. Masalah koneksi internet di lab.", false);
-            return false;
-        }
-    }
-
-    // --- 5. WORKSPACE CBT ENGINE (LEMBAR KERJA UJIAN) ---
-    function launchExamWorkspace(examId) {
-        const exam = examsList.find(e => e.exam_id === examId);
-        const questionsStr = localStorage.getItem(`cbt_questions_${examId}`);
-        if (!exam || !questionsStr) {
-            showToast("Soal belum diunduh!", false);
-            return;
-        }
-
-        currentExam = exam;
-        currentQuestions = JSON.parse(questionsStr);
-        activeQuestionIndex = 0;
-        
-        // Load atau inisialisasi jawaban dan ragu-ragu
-        const savedAns = localStorage.getItem(`cbt_answers_${examId}`);
-        const savedFlags = localStorage.getItem(`cbt_flags_${examId}`);
-        
-        currentAnswers = savedAns ? JSON.parse(savedAns) : {};
-        doubtfulFlags = savedFlags ? JSON.parse(savedFlags) : {};
-        
-        // Simpan tanda pengerjaan aktif
-        localStorage.setItem('cbt_active_exam_id', examId);
-        localStorage.setItem(`cbt_status_${examId}`, "ACTIVE");
-
-        // Kelola Durasi
-        const savedDuration = localStorage.getItem(`cbt_timer_${examId}`);
-        if (savedDuration) {
-            timeRemainingSeconds = parseInt(savedDuration);
-        } else {
-            timeRemainingSeconds = exam.duration_minutes * 60;
-            localStorage.setItem(`cbt_timer_${examId}`, timeRemainingSeconds.toString());
-        }
-
-        // Kelola status kecurangan
-        const savedCheats = localStorage.getItem(`cbt_cheats_${examId}`);
-        cheatCount = savedCheats ? parseInt(savedCheats) : 0;
-        isCheckingCheats = false; // Reset sementara transisi fullscreen
-
-        // Tampilkan workspace
-        $('#work-exam-title').text(currentExam.title);
-        $('#work-student-name').text(studentSession.nama);
-        $('#work-student-nisn').text(`NISN: ${studentSession.nisn}`);
-        
-        $('#panel-workspace').removeClass('hidden');
-        $('#panel-dashboard, #panel-login, #panel-access-code').addClass('hidden');
-
-        // Buka Kiosk & Timer
-        startWorkspaceTimer(examId);
-        renderQuestionGrid();
-        loadQuestion(0);
-        
-        // Aktifkan mode Fullscreen (Gesture-driven)
-        requestFullScreen();
-
-        // Tunda 1.5 detik agar transisi fullscreen selesai
-        setTimeout(() => {
-            isCheckingCheats = true;
-        }, 1500);
-
-        // Konfirmasi ketika user reload tab
-        window.onbeforeunload = function() {
-            return "Anda sedang berada di lembar ujian. Perubahan Anda akan tersimpan lokal.";
-        };
-    }
-
-    // Kiosk Recovery: Melanjutkan pengerjaan saat browser crash
-    function resumeActiveExam(examId) {
-        // Ambil data lokal dari exam list jika belum termuat
-        if (examsList.length === 0) {
-            // Ambil dari cache local
-            const cachedSchool = localStorage.getItem('cbt_school_info');
-            const cachedStudent = localStorage.getItem('cbt_student_session');
-            if (cachedSchool && cachedStudent) {
-                schoolInfo = JSON.parse(cachedSchool);
+            if (cachedStudent) {
                 studentSession = JSON.parse(cachedStudent);
-            }
-        }
-        
-        // Buat dummy exam objek jika list kosong
-        const isDownloaded = localStorage.getItem(`cbt_questions_${examId}`) !== null;
-        if (!isDownloaded) return;
+                showDashboardPanel();
 
-        // Buat request list ujian di background agar detail update
-        refreshExamsList().then(() => {
-            launchExamWorkspace(examId);
-        }).catch(() => {
-            // Fallback offline resume jika server sekolah terputus
-            currentExam = {
-                exam_id: examId,
-                title: "Ujian Tersemat (Offline)",
-                subject: "Ujian",
-                duration_minutes: 60
-            };
-            launchExamWorkspace(examId);
-        });
-    }
-
-    // Workspace countdown timer
-    function startWorkspaceTimer(examId) {
-        if (countdownTimer) clearInterval(countdownTimer);
-        
-        countdownTimer = setInterval(() => {
-            if (timeRemainingSeconds <= 0) {
-                clearInterval(countdownTimer);
-                showToast("Waktu Ujian Habis!", false);
-                autoSubmitExam();
-            } else {
-                timeRemainingSeconds--;
-                localStorage.setItem(`cbt_timer_${examId}`, timeRemainingSeconds.toString());
-                displayTimerString(timeRemainingSeconds);
-            }
-        }, 1000);
-        
-        displayTimerString(timeRemainingSeconds);
-    }
-
-    // Format timer hh:mm:ss
-    function displayTimerString(totalSeconds) {
-        const hrs = Math.floor(totalSeconds / 3600);
-        const mins = Math.floor((totalSeconds % 3600) / 60);
-        const secs = totalSeconds % 60;
-        
-        const pad = (n) => String(n).padStart(2, '0');
-        const timerStr = `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
-        document.getElementById('work-timer').innerText = timerStr;
-
-        // Warn jika waktu kurang dari 5 menit
-        const timerPanel = document.getElementById('work-timer').parentElement;
-        if (totalSeconds < 300) {
-            timerPanel.className = timerPanel.className.replace('text-cyan-300', 'text-rose-500 animate-pulse');
-        } else {
-            timerPanel.className = timerPanel.className.replace('text-rose-500 animate-pulse', 'text-cyan-300');
-        }
-    }
-
-    // Memuat Soal Ujian
-    function loadQuestion(index) {
-        if (index < 0 || index >= currentQuestions.length) return;
-        activeQuestionIndex = index;
-        
-        const q = currentQuestions[index];
-        
-        // Update header & total badge
-        $('#work-question-num-header').text(`SOAL NOMOR ${index + 1}`);
-        $('#work-question-total-badge').text(`Dari ${currentQuestions.length} Soal`);
-
-        // Render teks pertanyaan
-        const questionTextContainer = document.getElementById('work-question-text');
-        questionTextContainer.innerHTML = parseBBCodeMarkup(q.pertanyaan);
-
-        // Render opsi
-        const optionsContainer = document.getElementById('work-options-container');
-        optionsContainer.innerHTML = '';
-
-        const qType = String(q.tipe || "pg").toLowerCase();
-
-        if (qType === "isian") {
-            const currentTextVal = currentAnswers[q.id] || "";
-            optionsContainer.innerHTML = `
-                <div class="space-y-2 max-w-lg">
-                    <label class="text-xs text-slate-400 font-bold block mb-1">Ketikkan jawaban singkat Anda:</label>
-                    <input type="text" id="input-isian" value="${escapeHtml(currentTextVal)}" placeholder="Ketik jawaban..." class="w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-4 px-5 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all text-slate-800 font-medium" oninput="saveIsianAnswer('${q.id}', this.value)" />
-                </div>
-            `;
-        } else if (qType === "kompleks") {
-            const optionsArray = [
-                { key: 'A', text: q.a },
-                { key: 'B', text: q.b },
-                { key: 'C', text: q.c },
-                { key: 'D', text: q.d },
-                { key: 'E', text: q.e }
-            ];
-
-            const heading = document.createElement('p');
-            heading.className = "text-xs text-slate-400 font-bold mb-3";
-            heading.innerText = "Pilih satu atau lebih jawaban yang benar:";
-            optionsContainer.appendChild(heading);
-
-            const selectedAnsVal = currentAnswers[q.id] || "";
-            const checkedSet = new Set(selectedAnsVal.split(',').filter(x => x.trim() !== ""));
-
-            optionsArray.forEach(opt => {
-                if (!opt.text || opt.text.trim() === "") return;
-
-                const isSelected = checkedSet.has(opt.key);
-
-                const div = document.createElement('div');
-                div.className = `option-card flex items-center gap-4 p-4 rounded-2xl border-2 ${isSelected ? 'selected' : ''}`;
-                div.onclick = function() { selectKompleksAnswer(q.id, opt.key); };
-                
-                div.innerHTML = `
-                    <span class='option-letter w-9 h-9 rounded-xl shrink-0 flex items-center justify-center font-bold text-sm ${isSelected ? 'bg-blue-800 text-white' : ''}'>
-                        ${isSelected ? `<i class="fas fa-check"></i>` : opt.key}
-                    </span>
-                    <span class='text-sm text-slate-700 leading-normal math-tex'>
-                        ${parseBBCodeMarkup(opt.text)}
-                    </span>
-                `;
-                optionsContainer.appendChild(div);
-            });
-        } else {
-            // "pg" atau "bs" atau default
-            const optionsArray = [
-                { key: 'A', text: q.a },
-                { key: 'B', text: q.b },
-                { key: 'C', text: q.c },
-                { key: 'D', text: q.d },
-                { key: 'E', text: q.e }
-            ];
-
-            const heading = document.createElement('p');
-            heading.className = "text-xs text-slate-400 font-bold mb-3";
-            heading.innerText = "Pilih salah satu jawaban yang benar:";
-            optionsContainer.appendChild(heading);
-
-            optionsArray.forEach(opt => {
-                if (!opt.text || opt.text.trim() === "") return;
-
-                const selectedAnswer = currentAnswers[q.id] || "";
-                const isSelected = selectedAnswer === opt.key;
-
-                const div = document.createElement('div');
-                div.className = `option-card flex items-center gap-4 p-4 rounded-2xl border-2 ${isSelected ? 'selected' : ''}`;
-                div.onclick = function() { selectAnswer(q.id, opt.key); };
-                
-                div.innerHTML = `
-                    <span class='option-letter w-9 h-9 rounded-xl shrink-0 flex items-center justify-center font-bold text-sm ${isSelected ? 'bg-blue-800 text-white' : ''}'>
-                        ${opt.key}
-                    </span>
-                    <span class='text-sm text-slate-700 leading-normal math-tex'>
-                        ${parseBBCodeMarkup(opt.text)}
-                    </span>
-                `;
-                optionsContainer.appendChild(div);
-            });
-        }
-
-        // Kelola status bendera ragu-ragu
-        const isFlagged = doubtfulFlags[q.id] === true;
-        const flagBtn = document.getElementById('btn-flag');
-        if (isFlagged) {
-            flagBtn.className = "bg-amber-500 hover:bg-amber-600 text-white border-2 border-amber-500 font-bold text-xs px-6 py-3 rounded-xl active:scale-95 transition-all cursor-pointer flex items-center gap-1.5";
-            flagBtn.innerHTML = "<i class='fas fa-flag'></i> RAGU-RAGU AKTIF";
-        } else {
-            flagBtn.className = "bg-white text-slate-500 hover:bg-slate-100 border-2 border-slate-200 font-bold text-xs px-6 py-3 rounded-xl active:scale-95 transition-all cursor-pointer flex items-center gap-1.5";
-            flagBtn.innerHTML = "<i class='far fa-flag'></i> RAGU-RAGU";
-        }
-
-        // Manage button state prev / next
-        document.getElementById('btn-prev').disabled = index === 0;
-        
-        const nextBtn = document.getElementById('btn-next');
-        if (index === currentQuestions.length - 1) {
-            nextBtn.innerHTML = "SELESAI <i class='fas fa-paper-plane ml-1'></i>";
-            nextBtn.onclick = triggerFinishExam;
-        } else {
-            nextBtn.innerHTML = "SOAL BERIKUTNYA <i class='fas fa-chevron-right ml-1'></i>";
-            nextBtn.onclick = function() { loadQuestion(activeQuestionIndex + 1); };
-        }
-
-        // Trigger MathJax render ulang untuk rendering rumus di workspace
-        if (window.MathJax && window.MathJax.typeset) {
-            window.MathJax.typeset();
-        }
-
-        // Update active cell grid
-        updateActiveGridCell(index);
-    }
-
-    // Parser BBCode untuk Arab, Jawa, Pengantar, dan URL Gambar Otomatis
-    function parseBBCodeMarkup(text) {
-        if (!text) return "";
-        let html = String(text);
-
-        // Sanitize Spasi Matematika
-        html = html.replace(/\$\s+/g, "$").replace(/\s+\$/g, "$");
-
-        // Parse Arab
-        html = html.replace(/\[arab\]([\s\S]*?)\[\/arab\]/gi, '<span class="font-arabic text-3xl leading-loose text-right block my-4 select-none" dir="rtl">$1</span>');
-        html = html.replace(/\[arab\]([\s\S]*?)(?=\[(?:arab|jawa|pengantar)\]|$)/gi, '<span class="font-arabic text-3xl leading-loose text-right block my-4 select-none" dir="rtl">$1</span>');
-
-        // Parse Jawa
-        html = html.replace(/\[jawa\]([\s\S]*?)\[\/jawa\]/gi, '<span class="font-javanese text-2xl my-3 block leading-relaxed">$1</span>');
-        html = html.replace(/\[jawa\]([\s\S]*?)(?=\[(?:arab|jawa|pengantar)\]|$)/gi, '<span class="font-javanese text-2xl my-3 block leading-relaxed">$1</span>');
-
-        // Parse Pengantar
-        html = html.replace(/\[pengantar\]([\s\S]*?)\[\/pengantar\]/gi, function(match, isi) {
-            return '<div class="bg-blue-50 border-l-4 border-blue-800 p-5 my-4 text-sm text-slate-800 rounded-r-2xl shadow-inner font-medium">' +
-                   '<strong class="text-blue-900 block mb-1.5">📝 PENGANTAR SOAL:</strong>' + 
-                   isi.trim() + 
-                   '</div>';
-        });
-        html = html.replace(/\[pengantar\]([\s\S]*?)(?=\[(?:arab|jawa|pengantar)\]|$)/gi, function(match, isi) {
-            return '<div class="bg-blue-50 border-l-4 border-blue-800 p-5 my-4 text-sm text-slate-800 rounded-r-2xl shadow-inner font-medium">' +
-                   '<strong class="text-blue-900 block mb-1.5">📝 PENGANTAR SOAL:</strong>' + 
-                   isi.trim() + 
-                   '</div>';
-        });
-
-        // Render URL Gambar Menjadi <img>
-        const imgRegex = /(https?:\/\/[^\s]+?\.(?:jpg|jpeg|png|gif|webp|svg))/gi;
-        html = html.replace(imgRegex, function(url) {
-            return `<img src="${url}" alt="Gambar Soal" class="max-w-full h-auto rounded-2xl block my-4 mx-auto shadow-sm border border-slate-100"/>`;
-        });
-
-        return html;
-    }
-
-    // Memilih Opsi Jawaban
-    function selectAnswer(questionId, optionKey) {
-        currentAnswers[questionId] = optionKey;
-        
-        // Simpan progres ke LocalStorage secara instan (Durabilitas Kiosk)
-        localStorage.setItem(`cbt_answers_${currentExam.exam_id}`, JSON.stringify(currentAnswers));
-        
-        // Update tampilan opsi yang sedang dibuka
-        loadQuestion(activeQuestionIndex);
-        
-        // Update nomor pada sidebar grid
-        renderQuestionGrid();
-    }
-
-    // Menyalakan/Mematikan Ragu-ragu
-    function toggleDoubtfulFlag() {
-        const q = currentQuestions[activeQuestionIndex];
-        const currentFlag = doubtfulFlags[q.id] || false;
-        
-        doubtfulFlags[q.id] = !currentFlag;
-        
-        // Simpan ke LocalStorage secara instan
-        localStorage.setItem(`cbt_flags_${currentExam.exam_id}`, JSON.stringify(doubtfulFlags));
-        
-        // Segarkan visual tombol
-        loadQuestion(activeQuestionIndex);
-        
-        // Segarkan grid navigasi
-        renderQuestionGrid();
-    }
-
-    // Tombol Sebelumnya
-    function prevQuestion() {
-        if (activeQuestionIndex > 0) {
-            loadQuestion(activeQuestionIndex - 1);
-        }
-    }
-
-    // Render Grid Nomor Navigasi Ujian
-    function renderQuestionGrid() {
-        const gridContainer = document.getElementById('work-grid-numbers');
-        gridContainer.innerHTML = '';
-
-        currentQuestions.forEach((q, index) => {
-            const isAnswered = currentAnswers[q.id] !== undefined && currentAnswers[q.id] !== "";
-            const isFlagged = doubtfulFlags[q.id] === true;
-            const isActive = index === activeQuestionIndex;
-
-            let statusClass = "unanswered";
-            if (isFlagged) {
-                statusClass = "flagged";
-            } else if (isAnswered) {
-                statusClass = "answered";
-            }
-
-            const cell = document.createElement('div');
-            cell.className = `grid-item ${statusClass} ${isActive ? 'active' : ''}`;
-            cell.innerText = index + 1;
-            cell.onclick = function() { loadQuestion(index); };
-            
-            gridContainer.appendChild(cell);
-        });
-    }
-
-    // Memperbarui grid aktif saat ini
-    function updateActiveGridCell(activeIndex) {
-        $('.grid-item').removeClass('active');
-        $(`.grid-item:nth-child(${activeIndex + 1})`).addClass('active');
-    }
-
-    // --- 6. SELESAI UJIAN (CONFIRMATION DIALOG) ---
-    function triggerFinishExam() {
-        // Kalkulasi Statistik
-        let answered = 0;
-        let flagged = 0;
-        let unanswered = 0;
-
-        currentQuestions.forEach(q => {
-            const isAns = currentAnswers[q.id] !== undefined && currentAnswers[q.id] !== "";
-            const isFlg = doubtfulFlags[q.id] === true;
-
-            if (isFlg) flagged++;
-            else if (isAns) answered++;
-            else unanswered++;
-        });
-
-        document.getElementById('summary-answered').innerText = answered;
-        document.getElementById('summary-flagged').innerText = flagged;
-        document.getElementById('summary-unanswered').innerText = unanswered;
-
-        // Tampilkan modal konfirmasi
-        $('#modal-submit').removeClass('hidden');
-    }
-
-    // Tutup Modal Submit
-    function closeSubmitModal() {
-        $('#modal-submit').addClass('hidden');
-    }
-
-    // Kalkulasi lokal nilai di RAM Client
-    function calculateLocalScore() {
-        let correct = 0;
-        const total = currentQuestions.length;
-        if (total === 0) return 0;
-
-        currentQuestions.forEach(q => {
-            const correctKey = String(q.kunci || "").trim().toLowerCase().replace(/\s+/g, "");
-            const studentKey = String(currentAnswers[q.id] || "").trim().toLowerCase().replace(/\s+/g, "");
-            
-            if (correctKey !== "" && correctKey === studentKey) {
-                correct++;
-            }
-        });
-        return Math.round((correct / total) * 100);
-    }
-
-    // Auto submit karena waktu habis
-    function autoSubmitExam() {
-        closeSubmitModal();
-        submitExamFinal();
-    }
-
-    // --- 7. SUBMIT AKHIR UJIAN KE SERVER (SCHOOL GAS) ---
-    async function submitExamFinal() {
-        if (!currentExam || !studentSession) return;
-
-        const submitBtn = document.getElementById('btn-confirm-submit');
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = "<i class='fas fa-spinner fa-spin mr-1'></i> MENGIRIM JAWABAN...";
-
-        // Matikan interval timer
-        if (countdownTimer) clearInterval(countdownTimer);
-
-        // Kalkulasi durasi pengerjaan
-        const timeSpentSeconds = (currentExam.duration_minutes * 60) - timeRemainingSeconds;
-        const timeSpentMinutes = Math.ceil(timeSpentSeconds / 60);
-        const durationStr = `${timeSpentMinutes} menit`;
-        
-        // Kalkulasi Skor
-        const localScore = calculateLocalScore();
-
-        // Siapkan Payload Jawaban Mentah
-        const answersPayload = {};
-        currentQuestions.forEach(q => {
-            answersPayload[q.id] = currentAnswers[q.id] || "";
-        });
-
-        // Identifikasi perangkat browser
-        const browserAgent = navigator.userAgent;
-
-        // Tandai status lokal sebagai SUBMITTED agar tidak bisa dikerjakan lagi
-        localStorage.setItem(`cbt_status_${currentExam.exam_id}`, "SUBMITTED");
-
-        try {
-            // POST data pengerjaan ke GAS sekolah
-            const params = new URLSearchParams();
-            params.append('action', 'submitExam');
-            params.append('nisn', studentSession.nisn);
-            params.append('examId', currentExam.exam_id);
-            params.append('jawaban', JSON.stringify(answersPayload));
-            params.append('durasi', durationStr);
-            params.append('device_id', `Web Browser (${browserAgent})`);
-            params.append('nilai', localScore.toString());
-
-            const response = await fetch(schoolInfo.url_gas, {
-                method: 'POST',
-                body: params
-            });
-            const responseStr = await response.text();
-            
-            // Clean Response jika dibungkus HTML oleh Google Apps Script redirect
-            const jsonRegex = /\{.*\}/;
-            const match = jsonRegex.exec(responseStr);
-            const cleanResponse = match ? match[0] : responseStr;
-            
-            let isSyncSuccess = false;
-            let finalScore = localScore;
-
-            try {
-                const data = JSON.parse(cleanResponse);
-                if (data.status === "success") {
-                    isSyncSuccess = true;
-                    finalScore = parseInt(data.nilai) || localScore;
+                if (activeExamId) {
+                    resumeActiveExam(activeExamId);
                 }
-            } catch (je) {
-                // Fallback: Jika HTTP request berhasil terkirim namun parsing JSON gagal karena google redirect page wrapping,
-                // kita asumsikan sukses karena GAS terbukti mengeksekusi doPostMapping database
-                isSyncSuccess = true;
-            }
-
-            if (isSyncSuccess) {
-                // Bersihkan cache pengerjaan lokal setelah sukses
-                clearLocalStorageExamData(currentExam.exam_id);
-                
-                closeSubmitModal();
-                showSuccessModal(finalScore);
-            } else {
-                // Gagal sinkronisasi (tetap simpan offline agar bisa dikirim ulang)
-                handleOfflineSubmitFailure(currentExam.exam_id);
-            }
-        } catch (e) {
-            // Offline submit failure (koneksi terputus saat submit)
-            handleOfflineSubmitFailure(currentExam.exam_id);
-        } finally {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = "YA, KIRIM SELESAI";
-        }
-    }
-
-    // Penanganan saat gagal submit karena koneksi putus (Penyelamatan Offline)
-    function handleOfflineSubmitFailure(examId) {
-        closeSubmitModal();
-        window.onbeforeunload = null; // Lepas pencegahan unload
-        
-        // Matikan deteksi & keluar fullscreen
-        isCheckingCheats = false;
-        cheatCount = 0;
-        if (document.exitFullscreen) {
-            document.exitFullscreen().catch(err => {});
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen().catch(err => {});
-        }
-
-        // Matikan workspace
-        $('#panel-workspace').addClass('hidden');
-        
-        // Bersihkan token dari active list
-        localStorage.removeItem('cbt_active_exam_id');
-        
-        showToast("Jawaban Anda tersimpan AMAN di lokal komputer, namun gagal sinkron ke server karena masalah koneksi di lab.", false);
-        
-        // Kembali ke dashboard
-        showDashboardPanel();
-    }
-
-    // Sinkronisasi Ulang Jawaban Tertunda dari Dashboard
-    async function syncPendingExamFinal(examId) {
-        const answersStr = localStorage.getItem(`cbt_answers_${examId}`);
-        const questionsStr = localStorage.getItem(`cbt_questions_${examId}`);
-        if (!answersStr || !questionsStr) return;
-
-        const answers = JSON.parse(answersStr);
-        const questions = JSON.parse(questionsStr);
-        
-        // Kalkulasi skor
-        let correct = 0;
-        const total = questions.length;
-        questions.forEach(q => {
-            const correctKey = String(q.kunci || "").trim().toLowerCase().replace(/\s+/g, "");
-            const studentKey = String(answers[q.id] || "").trim().toLowerCase().replace(/\s+/g, "");
-            if (correctKey !== "" && correctKey === studentKey) correct++;
-        });
-        const localScore = total > 0 ? Math.round((correct / total) * 100) : 0;
-
-        showToast("Mencoba menyinkronkan jawaban tertunda...", true);
-
-        try {
-            const params = new URLSearchParams();
-            params.append('action', 'submitExam');
-            params.append('nisn', studentSession.nisn);
-            params.append('examId', examId);
-            params.append('jawaban', answersStr);
-            params.append('durasi', "Sync Offline");
-            params.append('device_id', `Web Browser (${navigator.userAgent})`);
-            params.append('nilai', localScore.toString());
-
-            const response = await fetch(schoolInfo.url_gas, {
-                method: 'POST',
-                body: params
-            });
-            const responseStr = await response.text();
-            
-            const jsonRegex = /\{.*\}/;
-            const match = jsonRegex.exec(responseStr);
-            const cleanResponse = match ? match[0] : responseStr;
-            
-            let isSyncSuccess = false;
-
-            try {
-                const data = JSON.parse(cleanResponse);
-                if (data.status === "success") isSyncSuccess = true;
-            } catch (je) {
-                isSyncSuccess = true;
-            }
-
-            if (isSyncSuccess) {
-                showToast("Sinkronisasi jawaban tertunda berhasil! Data tersimpan di server.", true);
-                clearLocalStorageExamData(examId);
-                refreshExamsList();
-            } else {
-                showToast("Sinkronisasi gagal. Coba lagi beberapa saat.", false);
-            }
-        } catch (e) {
-            showToast("Gagal terhubung ke database. Pastikan jaringan internet sekolah aktif.", false);
-        }
-    }
-
-    // Bersihkan file pengerjaan lokal
-    function clearLocalStorageExamData(examId) {
-        localStorage.removeItem(`cbt_questions_${examId}`);
-        localStorage.removeItem(`cbt_answers_${examId}`);
-        localStorage.removeItem(`cbt_flags_${examId}`);
-        localStorage.removeItem(`cbt_timer_${examId}`);
-        localStorage.removeItem('cbt_active_exam_id');
-        localStorage.removeItem(`cbt_status_${examId}`);
-        localStorage.removeItem(`cbt_cheats_${examId}`);
-    }
-
-    // Modal Sukses & Skor
-    function showSuccessModal(score) {
-        document.getElementById('success-score-value').innerText = score;
-        $('#modal-success').removeClass('hidden');
-    }
-
-    function backToDashboardFromSuccess() {
-        $('#modal-success').addClass('hidden');
-        
-        // Matikan deteksi & keluar fullscreen
-        isCheckingCheats = false;
-        cheatCount = 0;
-        if (document.exitFullscreen) {
-            document.exitFullscreen().catch(err => {});
-        } else if (document.webkitExitFullscreen) {
-            document.webkitExitFullscreen().catch(err => {});
-        }
-
-        // Matikan workspace
-        $('#panel-workspace').addClass('hidden');
-        
-        // Matikan event beforeunload
-        window.onbeforeunload = null;
-
-        // Reset variable pengerjaan
-        currentExam = null;
-        currentQuestions = [];
-        currentAnswers = {};
-        doubtfulFlags = {};
-        
-        // Muat ulang dashboard
-        showDashboardPanel();
-    }
-    //]]>
-    </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang='id' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
-<head>
-<meta charset='UTF-8'/>
-<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
-<title>CBT SIM Sekolah | Portal Ujian</title>
-<!-- Libraries -->
-<script src='https://cdn.tailwindcss.com'></script>
-<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css' rel='stylesheet'/>
-<!-- Premium Fonts -->
-<link href='https://fonts.googleapis.com/css2?family=Amiri&family=Noto+Sans+Javanese&family=Inter:wght@400;500;600;700&family=Orbitron:wght@500;700&display=swap' rel='stylesheet'/>
-<!-- MathJax for rendering math formulas -->
-<script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            },
-            options: {
-                processHtmlClass: 'math-tex'
-            }
-        };
-    </script>
-<script async='async' id='MathJax-script' src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'></script>
-<style id='page-skin-1' type='text/css'><!--
-:root {
---primary-blue: #0f2b5c;
---primary-dark: #071939;
---bright-cyan: #38bdf8;
---accent-gold: #f59e0b;
---dark-bg: #0a1329;
---accent-orange: #dc2626;
-}
-body {
-font-family: 'Poppins', 'Inter', sans-serif;
-background-color: #f8fafc;
-margin: 0;
-overflow-x: hidden;
-user-select: none; /* Mencegah seleksi teks saat ujian */
-}
-.font-robo { font-family: 'Orbitron', sans-serif; }
-.font-arabic { font-family: 'Amiri', serif; }
-.font-javanese { font-family: 'Noto Sans Javanese', serif; }
-.mung-hero {
-background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-blue) 50%, var(--dark-bg) 100%);
-position: relative;
-overflow: hidden;
-}
-.mung-hero::before {
-content: ''; position: absolute; top: -100px; right: -100px; width: 300px; height: 300px;
-background: var(--bright-cyan); filter: blur(120px); opacity: 0.35;
-}
-.glass-panel {
-background: rgba(255, 255, 255, 0.95);
-backdrop-filter: blur(20px);
-border: 1px solid rgba(255, 255, 255, 0.6);
-box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-}
-.workspace-glass {
-background: rgba(255, 255, 255, 0.9);
-backdrop-filter: blur(10px);
-border-right: 1px solid rgba(226, 232, 240, 0.8);
-}
-/* Styling Opsi Pilihan */
-.option-card {
-border: 2px solid #e2e8f0;
-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-cursor: pointer;
-}
-.option-card:hover {
-border-color: var(--primary-blue);
-background-color: rgba(15, 43, 92, 0.03);
-transform: translateX(4px);
-}
-.option-card.selected {
-border-color: var(--primary-blue);
-background-color: rgba(15, 43, 92, 0.08);
-box-shadow: 0 4px 12px rgba(15, 43, 92, 0.08);
-}
-.option-letter {
-background-color: #f1f5f9;
-color: #475569;
-transition: all 0.2s ease;
-}
-.option-card.selected .option-letter {
-background-color: var(--primary-blue);
-color: white;
-}
-/* Grid Navigasi Soal */
-.grid-item {
-aspect-ratio: 1;
-display: flex;
-align-items: center;
-justify-content: center;
-font-weight: 700;
-font-size: 0.875rem;
-border-radius: 8px;
-border: 2px solid #e2e8f0;
-cursor: pointer;
-transition: all 0.15s ease;
-}
-.grid-item:hover {
-transform: scale(1.08);
-box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-.grid-item.active {
-border-color: var(--primary-blue);
-outline: 2px solid var(--bright-cyan);
-}
-.grid-item.answered {
-background-color: #10b981;
-border-color: #10b981;
-color: white;
-}
-.grid-item.flagged {
-background-color: #f59e0b;
-border-color: #f59e0b;
-color: white;
-}
-.grid-item.unanswered {
-background-color: white;
-color: #334155;
-}
-/* Animasi */
-@keyframes slideIn {
-from { opacity: 0; transform: translateY(15px); }
-to { opacity: 1; transform: translateY(0); }
-}
-.animate-slide {
-animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-#blogger-widgets-wrapper { display: none; }
-/* Custom scrollbar untuk lembar soal */
-.custom-scroll::-webkit-scrollbar {
-width: 8px;
-}
-.custom-scroll::-webkit-scrollbar-track {
-background: #f1f5f9;
-}
-.custom-scroll::-webkit-scrollbar-thumb {
-background: #cbd5e1;
-border-radius: 4px;
-}
-.custom-scroll::-webkit-scrollbar-thumb:hover {
-background: #94a3b8;
-}
-
---></style>
-<meta name='google-adsense-platform-account' content='ca-host-pub-1556223355139109'/>
-<meta name='google-adsense-platform-domain' content='blogspot.com'/>
-
-</head>
-<body class='bg-slate-50'>
-<div id='blogger-widgets-wrapper'>
-<div class='no-items section' id='main-section'></div>
-</div>
-<!-- ========================================== -->
-<!-- 1. PANEL VERIFIKASI KODE AKSES SEKOLAH -->
-<!-- ========================================== -->
-<div class='min-h-screen flex items-center justify-center mung-hero px-4 py-12' id='panel-access-code'>
-<div class='w-full max-w-md glass-panel rounded-3xl p-8 animate-slide relative z-10'>
-<div class='text-center mb-8'>
-<img alt='Logo MAN 1 Malang' class='h-20 w-20 mx-auto mb-4 drop-shadow-md object-contain' src='https://lh3.googleusercontent.com/d/1Uw3VpAtFNUC_lKSrN4H8GcYWKjyg_9xJ'/>
-<h1 class='font-robo font-bold text-blue-950 tracking-tighter text-2xl'>CBT <span class='text-sky-500'>SIM SEKOLAH</span></h1>
-<p class='text-xs text-slate-400 font-medium uppercase tracking-widest mt-1'>Portal Ujian Digital Mandiri</p>
-</div>
-<div class='space-y-5'>
-<div>
-<label class='text-[10px] font-bold text-blue-800 uppercase tracking-widest block mb-2'>Masukkan Kode Akses Sekolah</label>
-<div class='relative'>
-<span class='absolute left-4 top-3.5 text-slate-400'><i class='fas fa-key'></i></span>
-<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all font-bold tracking-widest uppercase text-blue-900' id='input-school-code' placeholder='MAN1MALANG' type='text'/>
-</div>
-</div>
-<button class='w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-blue-900/20 active:scale-[0.98] transition-all border-0 cursor-pointer flex items-center justify-center gap-2' id='btn-verify-code' onclick='verifySchoolCode()'>
-<i class='fas fa-search'></i> VERIFIKASI SEKOLAH
-                </button>
-</div>
-<div class='text-center mt-8 text-[11px] text-slate-500 font-medium leading-relaxed'>
-                Copyright &#169; 2026 Mung Exambro. All Rights Reserved.<br/>
-                Support by <a class='text-blue-700 hover:text-blue-900 font-bold hover:underline transition-all' href='https://mr.mung.my.id' target='_blank'>Mung Media</a>
-</div>
-</div>
-</div>
-<!-- ========================================== -->
-<!-- 2. PANEL LOGIN SISWA -->
-<!-- ========================================== -->
-<div class='min-h-screen flex items-center justify-center mung-hero px-4 py-12 hidden' id='panel-login'>
-<div class='w-full max-w-md glass-panel rounded-3xl p-8 animate-slide relative z-10'>
-<div class='text-center mb-8 flex flex-col items-center justify-center'>
-<div class='w-16 h-16 bg-white border border-slate-200 rounded-2xl flex items-center justify-center mb-3 overflow-hidden p-2 shadow-sm hidden' id='login-school-logo-container'>
-<img class='w-full h-full object-contain' id='login-school-logo' src=''/>
-</div>
-<span class='inline-block bg-blue-50 text-blue-800 text-[10px] font-bold px-3 py-1.5 rounded-full mb-3 uppercase tracking-wider' id='login-school-name'>MAN 1 MALANG</span>
-<h1 class='font-robo font-bold text-blue-900 tracking-tighter text-2xl'>MASUK <span class='text-cyan-500'>SISWA</span></h1>
-<p class='text-xs text-slate-400 font-medium uppercase tracking-widest mt-1'>Masukkan NISN & Password Ujian</p>
-</div>
-<div class='space-y-4'>
-<div>
-<label class='text-[10px] font-bold text-blue-800 uppercase tracking-widest block mb-1.5'>Nomor Induk Siswa Nasional (NISN)</label>
-<div class='relative'>
-<span class='absolute left-4 top-3.5 text-slate-400'><i class='fas fa-user-circle'></i></span>
-<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all text-slate-800' id='login-nisn' placeholder='Masukkan NISN' type='text'/>
-</div>
-</div>
-<div>
-<label class='text-[10px] font-bold text-blue-800 uppercase tracking-widest block mb-1.5'>Kata Sandi / Password</label>
-<div class='relative'>
-<span class='absolute left-4 top-3.5 text-slate-400'><i class='fas fa-lock'></i></span>
-<input class='w-full bg-slate-50 border-2 border-slate-200 rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:bg-white focus:border-blue-500 outline-none transition-all text-slate-800' id='login-password' placeholder='Masukkan Password' type='password'/>
-</div>
-</div>
-<div class='pt-2'>
-<button class='w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-blue-900/20 active:scale-[0.98] transition-all border-0 cursor-pointer flex items-center justify-center gap-2' id='btn-login-submit' onclick='submitStudentLogin()'>
-<i class='fas fa-sign-in-alt'></i> MASUK UJIAN
-                    </button>
-</div>
-</div>
-<div class='flex items-center justify-between mt-6 pt-4 border-t border-slate-100'>
-<a class='text-xs text-blue-600 hover:text-blue-800 font-bold transition-all cursor-pointer' onclick='backToSchoolCode()'>
-<i class='fas fa-arrow-left mr-1'></i> Ganti Sekolah
-                </a>
-<span class='text-[10px] text-slate-400' id='login-school-code-badge'>KODE: -</span>
-</div>
-<div class='text-center mt-6 text-[11px] text-slate-500 font-medium leading-relaxed'>
-                Copyright &#169; 2026 Mung Exambro. All Rights Reserved.<br/>
-                Support by <a class='text-blue-700 hover:text-blue-900 font-bold hover:underline transition-all' href='https://mr.mung.my.id' target='_blank'>Mung Media</a>
-</div>
-</div>
-</div>
-<!-- ========================================== -->
-<!-- 3. PANEL DASHBOARD UJIAN SISWA -->
-<!-- ========================================== -->
-<div class='min-h-screen flex flex-col hidden' id='panel-dashboard'>
-<!-- Dashboard Header -->
-<header class='bg-blue-900 text-white shadow-xl sticky top-0 z-50 mung-hero'>
-<div class='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between relative z-10'>
-<div class='flex items-center gap-4'>
-<div class='h-12 w-12 bg-white/15 border border-white/20 rounded-xl overflow-hidden flex items-center justify-center p-1 shadow-sm' id='dash-school-logo-container'>
-<img alt='Logo MAN 1 Malang' class='h-full w-full object-contain' id='dash-school-logo' src='https://lh3.googleusercontent.com/d/1Uw3VpAtFNUC_lKSrN4H8GcYWKjyg_9xJ'/>
-</div>
-<div>
-<h2 class='font-robo font-bold text-lg tracking-tight text-white'>CBT <span class='text-sky-400'>SIM SEKOLAH</span></h2>
-<p class='text-xs text-blue-200 font-bold uppercase tracking-wider' id='dash-school-name'>MAN 1 MALANG</p>
-</div>
-</div>
-<div class='flex items-center gap-6'>
-<div class='text-right hidden sm:block border-r border-blue-800/60 pr-6'>
-<div class='font-bold text-sm text-white' id='dash-student-name'>Nama Siswa</div>
-<div class='text-[11px] text-blue-300 font-mono mt-0.5' id='dash-student-details'>NISN: 00123456 | KELAS: IX</div>
-</div>
-<button class='bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white border-2 border-red-500/20 hover:border-red-500 font-bold text-xs px-4 py-2.5 rounded-xl active:scale-95 transition-all cursor-pointer flex items-center gap-1.5' onclick='logoutStudent()'>
-<i class='fas fa-sign-out-alt'></i> KELUAR
-                    </button>
-</div>
-</div>
-</header>
-<!-- Dashboard Content -->
-<main class='flex-1 max-w-5xl w-full mx-auto px-4 py-8 animate-slide'>
-<div class='flex flex-col md:flex-row gap-6 items-start'>
-<!-- Profil Siswa Card -->
-<div class='w-full md:w-80 bg-white rounded-3xl p-6 shadow-sm border border-slate-200/80 shrink-0'>
-<div class='text-center border-b pb-6 mb-6'>
-<div class='w-20 h-20 bg-blue-50 border-4 border-blue-100 rounded-full mx-auto flex items-center justify-center mb-3 text-blue-800 text-3xl font-bold overflow-hidden' id='profile-avatar-container'>
-<i class='fas fa-user-graduate' id='profile-avatar-icon'></i>
-</div>
-<h3 class='font-bold text-blue-900 text-base leading-tight' id='profile-card-name'>Nama Siswa</h3>
-<p class='text-xs text-slate-400 font-semibold font-mono mt-1' id='profile-card-nisn'>NISN: -</p>
-</div>
-<div class='space-y-4'>
-<div class='flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100'>
-<span class='text-xs text-slate-600 font-bold uppercase'>Kelas</span>
-<span class='text-xs text-blue-900 font-bold font-mono' id='profile-card-kelas'>-</span>
-</div>
-<div class='flex justify-between items-center bg-slate-50 p-3 rounded-2xl border border-slate-100'>
-<span class='text-xs text-slate-600 font-bold uppercase'>Kode Ruang</span>
-<span class='text-xs text-blue-900 font-bold font-mono' id='profile-card-code'>-</span>
-</div>
-</div>
-</div>
-<!-- Daftar Ujian List -->
-<div class='flex-1 w-full'>
-<div class='flex items-center justify-between mb-6'>
-<h2 class='font-bold text-blue-900 text-lg flex items-center gap-2'>
-<i class='fas fa-file-signature text-blue-700'></i> Daftar Ujian Sekolah Aktif
-                        </h2>
-<button class='bg-white border border-slate-200 hover:bg-slate-50 text-blue-800 font-bold text-xs px-4 py-2.5 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shadow-sm' onclick='refreshExamsList()'>
-<i class='fas fa-sync-alt' id='refresh-icon'></i> Segarkan
-                        </button>
-</div>
-<!-- Exam List Container -->
-<div class='space-y-4' id='exam-list-container'>
-<!-- Dinamis terisi oleh JS -->
-<div class='bg-white p-8 text-center text-slate-400 font-bold rounded-3xl shadow-sm border border-slate-200/80'>
-<i class='fas fa-spinner fa-spin text-lg mb-2 text-blue-800 block'></i> Memuat daftar ujian...
-                        </div>
-</div>
-</div>
-</div>
-</main>
-<!-- Dashboard Footer -->
-<footer class='bg-white border-t border-slate-200 py-6 mt-12 shrink-0'>
-<div class='max-w-5xl mx-auto px-4 text-center text-xs text-slate-500 font-medium leading-relaxed'>
-                Copyright &#169; 2026 Mung Exambro. All Rights Reserved.<br/>
-                Support by <a class='text-blue-600 hover:text-blue-800 font-bold hover:underline transition-all' href='https://mr.mung.my.id' target='_blank'>Mung Media</a>
-</div>
-</footer>
-</div>
-<!-- MODAL TOKEN DIHAPUS (BERALIH KE INLINE INPUT) -->
-<!-- ========================================== -->
-<!-- 5. CBT EXAM WORKSPACE (LEMBAR SOAL) -->
-<!-- ========================================== -->
-<div class='min-h-screen flex flex-col hidden' id='panel-workspace'>
-<!-- Top Workspace Bar -->
-<header class='bg-blue-950 text-white h-16 flex items-center justify-between px-6 shadow-md shrink-0 border-b border-blue-900'>
-<div class='flex items-center gap-3'>
-<span class='font-robo font-bold text-white text-sm tracking-tight'>CBT <span class='text-sky-400'>SIM SEKOLAH</span></span>
-<span class='text-blue-800'>|</span>
-<span class='bg-blue-900 text-blue-200 text-[10px] font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider' id='work-exam-title'>Ujian Matematika</span>
-</div>
-<div class='flex items-center gap-6'>
-<!-- Timer Panel -->
-<div class='flex items-center gap-2.5 bg-blue-900/60 border border-blue-800/80 px-4 py-1.5 rounded-xl shadow-inner font-mono font-bold text-white'>
-<i class='far fa-clock text-cyan-400 text-sm'></i>
-<span class='text-base tracking-widest text-cyan-300' id='work-timer'>00:00:00</span>
-</div>
-<div class='text-right hidden md:block'>
-<div class='font-bold text-xs text-blue-200' id='work-student-name'>Nama Siswa</div>
-<div class='text-[10px] text-blue-400 font-mono mt-0.5' id='work-student-nisn'>NISN: -</div>
-</div>
-</div>
-</header>
-<!-- Main Workspace Body -->
-<div class='flex-1 flex overflow-hidden relative'>
-<!-- Left Side: Passage & Soal Area -->
-<div class='flex-1 flex flex-col overflow-y-auto px-6 py-8 custom-scroll bg-slate-50' id='work-left-area'>
-<div class='max-w-3xl w-full mx-auto bg-white rounded-3xl p-8 border border-slate-200/60 shadow-sm flex-1 flex flex-col justify-between'>
-<div>
-<!-- Header Nomor Soal -->
-<div class='flex items-center justify-between border-b pb-4 mb-6'>
-<span class='bg-blue-50 text-blue-900 font-bold px-4.5 py-1.5 rounded-2xl text-xs border border-blue-100' id='work-question-num-header'>SOAL NOMOR 1</span>
-<span class='text-xs text-slate-400 font-bold font-mono' id='work-question-total-badge'>Dari 40 Soal</span>
-</div>
-<!-- Teks Soal -->
-<div class='text-slate-800 text-base leading-relaxed mb-8 select-none math-tex' id='work-question-text'>
-                            Memuat soal...
-                        </div>
-<!-- Opsi Jawaban -->
-<div class='space-y-3 select-none mb-10' id='work-options-container'>
-<!-- Dinamis diisi JS -->
-</div>
-</div>
-<!-- Bottom Navigasi -->
-<div class='flex items-center justify-between pt-6 border-t mt-auto'>
-<button class='bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs px-6 py-3 rounded-xl border border-slate-200 active:scale-95 transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-1.5' id='btn-prev' onclick='prevQuestion()'>
-<i class='fas fa-chevron-left'></i> SOAL SEBELUMNYA
-                        </button>
-<button class='bg-white text-amber-500 hover:bg-amber-50 border-2 border-amber-400 font-bold text-xs px-6 py-3 rounded-xl active:scale-95 transition-all cursor-pointer flex items-center gap-1.5' id='btn-flag' onclick='toggleDoubtfulFlag()'>
-<i class='far fa-flag'></i> RAGU-RAGU
-                        </button>
-<button class='bg-blue-800 hover:bg-blue-900 text-white font-bold text-xs px-6 py-3 rounded-xl active:scale-95 transition-all cursor-pointer flex items-center gap-1.5 shadow-md shadow-blue-800/10' id='btn-next' onclick='nextQuestion()'>
-                            SOAL BERIKUTNYA <i class='fas fa-chevron-right'></i>
-</button>
-</div>
-</div>
-</div>
-<!-- Right Side: Sidebar Navigasi Nomor Grid -->
-<div class='w-72 workspace-glass flex flex-col justify-between shrink-0 p-6 hidden lg:flex'>
-<div>
-<h3 class='font-bold text-blue-950 text-sm mb-4 uppercase tracking-wider border-b pb-2 flex items-center gap-2'>
-<i class='fas fa-th-large text-blue-800'></i> Navigasi Soal Ujian
-                    </h3>
-<!-- Grid container -->
-<div class='grid grid-cols-5 gap-2.5 overflow-y-auto max-h-[60vh] pr-2 custom-scroll' id='work-grid-numbers'>
-<!-- Dinamis -->
-</div>
-</div>
-<!-- Finish Exam Button Panel -->
-<div class='pt-6 border-t mt-6'>
-<button class='w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-4 rounded-xl shadow-lg shadow-red-700/10 active:scale-95 transition-all border-0 cursor-pointer flex items-center justify-center gap-2' onclick='triggerFinishExam()'>
-<i class='fas fa-paper-plane'></i> SELESAI & KIRIM JAWABAN
-                    </button>
-<div class='text-center mt-4 text-[10px] text-slate-500 font-semibold'>
-                        Support by <a class='text-blue-800 hover:underline font-bold transition-all' href='https://mr.mung.my.id' target='_blank'>Mung Media</a>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- ========================================== -->
-<!-- 6. MODAL SUBMIT CONFIRMATION -->
-<!-- ========================================== -->
-<div class='fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[1000] hidden' id='modal-submit'>
-<div class='w-full max-w-md bg-white rounded-3xl p-6 shadow-2xl animate-slide mx-4 border border-slate-100'>
-<div class='text-center mb-6'>
-<div class='w-12 h-12 bg-red-50 rounded-full mx-auto flex items-center justify-center mb-3 text-red-500 text-xl border border-red-100'>
-<i class='fas fa-exclamation-triangle'></i>
-</div>
-<h3 class='font-bold text-slate-800 text-lg'>Selesaikan Ujian Anda?</h3>
-<p class='text-xs text-slate-400 font-medium mt-1'>Setelah dikirim, Anda tidak dapat mengubah jawaban Anda lagi.</p>
-</div>
-<!-- Ringkasan Ujian -->
-<div class='bg-slate-50 border border-slate-100 p-4 rounded-2xl mb-6 space-y-2.5'>
-<div class='flex justify-between items-center text-xs'>
-<span class='text-slate-500 font-bold'>SUDAH DIJAWAB</span>
-<span class='bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full font-mono' id='summary-answered'>0</span>
-</div>
-<div class='flex justify-between items-center text-xs'>
-<span class='text-slate-500 font-bold'>RAGU-RAGU</span>
-<span class='bg-amber-100 text-amber-800 font-bold px-3 py-1 rounded-full font-mono' id='summary-flagged'>0</span>
-</div>
-<div class='flex justify-between items-center text-xs'>
-<span class='text-slate-500 font-bold'>BELUM DIJAWAB</span>
-<span class='bg-rose-100 text-rose-800 font-bold px-3 py-1 rounded-full font-mono' id='summary-unanswered'>0</span>
-</div>
-</div>
-<div class='flex gap-3'>
-<button class='flex-1 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3.5 px-4 rounded-xl border-0 cursor-pointer transition-all font-bold text-xs' onclick='closeSubmitModal()'>LANJUTKAN UJIAN</button>
-<button class='flex-1 bg-red-600 hover:bg-red-700 text-white font-bold py-3.5 px-4 rounded-xl border-0 cursor-pointer shadow-lg hover:shadow-red-900/10 transition-all font-bold text-xs' id='btn-confirm-submit' onclick='submitExamFinal()'>YA, KIRIM SELESAI</button>
-</div>
-</div>
-</div>
-<!-- ========================================== -->
-<!-- 7. MODAL SUCCESS SUBMISSION WITH SCORE -->
-<!-- ========================================== -->
-<div class='fixed inset-0 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center z-[1000] hidden' id='modal-success'>
-<div class='w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl animate-slide mx-4 border border-slate-100 text-center'>
-<div class='w-16 h-16 bg-emerald-50 rounded-full mx-auto flex items-center justify-center mb-4 text-emerald-500 text-3xl border border-emerald-100'>
-<i class='fas fa-check-circle'></i>
-</div>
-<h3 class='font-bold text-slate-800 text-xl mb-1'>Ujian Berhasil Terkirim!</h3>
-<p class='text-xs text-slate-400 font-medium mb-6'>Hasil pengerjaan Anda telah tersimpan aman di database sekolah.</p>
-<!-- Score Visualizer -->
-<div class='inline-block bg-blue-50 border border-blue-100 p-6 rounded-3xl mb-8 min-w-[160px]'>
-<span class='text-[10px] text-blue-800 font-bold uppercase tracking-widest block mb-1'>Nilai Anda</span>
-<span class='text-4xl font-bold text-blue-900 font-robo' id='success-score-value'>100</span>
-</div>
-<button class='w-full bg-blue-800 hover:bg-blue-900 text-white font-bold py-4 px-6 rounded-2xl shadow-lg hover:shadow-blue-900/10 transition-all border-0 cursor-pointer' onclick='backToDashboardFromSuccess()'>KEMBALI KE DASHBOARD</button>
-</div>
-</div>
-<!-- ========================================== -->
-<!-- MODAL CHEAT WARNING -->
-<!-- ========================================== -->
-<div class='fixed inset-0 bg-red-950/80 backdrop-blur-md flex items-center justify-center z-[9999] hidden' id='modal-cheat-warning'>
-<div class='w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl animate-slide mx-4 border-2 border-red-500 text-center'>
-<div class='w-16 h-16 bg-red-50 rounded-full mx-auto flex items-center justify-center mb-4 text-red-600 text-3xl border border-red-100 animate-bounce'>
-<i class='fas fa-exclamation-triangle'></i>
-</div>
-<h3 class='font-bold text-red-900 text-xl mb-2'>Deteksi Kecurangan!</h3>
-<p class='text-sm text-slate-600 mb-6 leading-relaxed'>
-                Anda terdeteksi meninggalkan halaman ujian atau keluar dari mode layar penuh.<br/>
-                Pelanggaran: <span class='font-bold text-red-600 text-lg' id='cheat-count-display'>0</span> / 3<br/>
-<span class='text-xs text-slate-400 font-medium block mt-3'>Jika melanggar lebih dari 3 kali, lembar jawaban Anda akan dikirim secara otomatis seadanya!</span>
-</p>
-<button class='w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-6 rounded-2xl transition-all border-0 cursor-pointer shadow-lg shadow-red-700/20 active:scale-[0.98]' onclick='resumeFullScreenAndExam()'>
-                KEMBALI KE LAYAR PENUH & SOAL
-            </button>
-</div>
-</div>
-<!-- ========================================== -->
-<!-- 8. TOAST NOTIFIER -->
-<!-- ========================================== -->
-<div class='fixed bottom-8 right-8 bg-slate-900 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3 translate-y-32 opacity-0 transition-all duration-500 z-[9999]' id='cbt-toast'>
-<i class='fas fa-info-circle text-cyan-400 text-xl' id='cbt-toast-icon'></i>
-<span class='text-sm font-bold' id='cbt-toast-text'>Pesan Notifikasi</span>
-</div>
-<!-- ========================================== -->
-<!-- JAVASCRIPT CBT ENGINE CORE -->
-<!-- ========================================== -->
-<script type='text/javascript'>
-    //<![CDATA[
-
-    // URL Google Apps Script. Saat index.html dijalankan sebagai Web App,
-    // nilai ini diisi otomatis oleh Code.gs. Jika dipasang di Blogger/hosting
-    // lain, ganti URL cadangan di bawah dengan URL deployment /exec Anda.
-    const INJECTED_API_URL = "<?!= apiUrl ?>";
-    const STANDALONE_API_URL = "https://script.google.com/macros/s/AKfycbx1iq2yV9vyg2SYGLtBQLE9OjK0Fng-PUzRSz9XKA2HyYPlr3PGWf5KBIWmHcOeSWRaCw/exec";
-    const MASTER_GAS_URL = INJECTED_API_URL.includes("<?")
-        ? STANDALONE_API_URL
-        : INJECTED_API_URL;
-
-    const APP_CONFIG = {
-        schoolCode: "MAN1MALANG",
-        schoolName: "MAN 1 MALANG",
-        spreadsheetId: "1cK2ElRDQmUokfqvlt1Jgt5mnNBem8f_WGE6FbMKTdlA",
-        logo: "https://lh3.googleusercontent.com/d/1Uw3VpAtFNUC_lKSrN4H8GcYWKjyg_9xJ"
-    };
-
-    function apiIsConfigured() {
-        return MASTER_GAS_URL && !MASTER_GAS_URL.includes("TEMPELKAN_URL_WEB_APP");
-    }
-
-    // Application state
-    let schoolInfo = null;      // Detail sekolah saat ini
-    let studentSession = null;  // Data profile siswa login
-    let examsList = [];         // List ujian dari server
-    let currentExam = null;     // Ujian yang sedang dikerjakan
-    let currentQuestions = [];  // Soal ujian yang sedang dikerjakan
-    let currentAnswers = {};    // Kunci: questionId, Nilai: jawaban terpilih
-    let doubtfulFlags = {};     // Kunci: questionId, Nilai: boolean
-    let activeQuestionIndex = 0;// Indeks soal yang aktif (0-based)
-    let countdownTimer = null;  // Timer interval ID
-    let timeRemainingSeconds = 0;// Waktu tersisa dalam detik
-    let cheatCount = 0;         // Jumlah pelanggaran kecurangan
-    const MAX_CHEAT_ATTEMPTS = 3; // Batas toleransi
-    let isCheckingCheats = false;// Status aktif deteksi kecurangan
-
-    // Mode Layar Penuh (Gesture-driven)
-    function requestFullScreen() {
-        const elem = document.documentElement;
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen().catch(err => {
-                console.log("Error requesting fullscreen: ", err);
-            });
-        } else if (elem.webkitRequestFullscreen) {
-            elem.webkitRequestFullscreen().catch(err => {});
-        } else if (elem.msRequestFullscreen) {
-            elem.msRequestFullscreen().catch(err => {});
-        }
-    }
-
-    function resumeFullScreenAndExam() {
-        $('#modal-cheat-warning').addClass('hidden');
-        requestFullScreen();
-    }
-
-    // Peringatan Kecurangan
-    function triggerCheatWarning(reason) {
-        if (!isCheckingCheats) return;
-        if (!$('#modal-cheat-warning').hasClass('hidden')) return;
-
-        cheatCount++;
-        localStorage.setItem(`cbt_cheats_${currentExam.exam_id}`, cheatCount.toString());
-        
-        document.getElementById('cheat-count-display').innerText = cheatCount;
-        showToast(`Pelanggaran terdeteksi: ${reason}`, false);
-
-        if (cheatCount >= MAX_CHEAT_ATTEMPTS) {
-            $('#modal-cheat-warning').addClass('hidden');
-            showToast("Batas pelanggaran terlampaui! Mengirim jawaban seadanya...", false);
-            autoSubmitExam();
-        } else {
-            $('#modal-cheat-warning').removeClass('hidden');
-        }
-    }
-
-    // Helper HTML Escape
-    function escapeHtml(text) {
-        if (!text) return "";
-        return text
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-    }
-
-    // Helper Simpan Jawaban Isian Singkat
-    function saveIsianAnswer(questionId, value) {
-        currentAnswers[questionId] = value;
-        localStorage.setItem(`cbt_answers_${currentExam.exam_id}`, JSON.stringify(currentAnswers));
-        renderQuestionGrid();
-    }
-
-    // Helper Kelola Pilihan Ganda Kompleks (Bisa pilih > 1 opsi)
-    function selectKompleksAnswer(questionId, optionKey) {
-        let currentAnsVal = currentAnswers[questionId] || "";
-        let selectedSet = new Set(currentAnsVal.split(',').filter(x => x.trim() !== ""));
-        if (selectedSet.has(optionKey)) {
-            selectedSet.delete(optionKey);
-        } else {
-            selectedSet.add(optionKey);
-        }
-        let sortedArray = Array.from(selectedSet).sort();
-        currentAnswers[questionId] = sortedArray.join(',');
-        
-        localStorage.setItem(`cbt_answers_${currentExam.exam_id}`, JSON.stringify(currentAnswers));
-        
-        // Render ulang lembar soal dan navigasi grid untuk update tampilan checkbox
-        loadQuestion(activeQuestionIndex);
-        renderQuestionGrid();
-    }
-
-    // Inisialisasi Aplikasi Saat Memuat Halaman
-    $(document).ready(function() {
-        initApp();
-        
-        // Mencegah klik kanan untuk keamanan
-        document.addEventListener('contextmenu', e => e.preventDefault());
-        // Mencegah CTRL+S, CTRL+U, dll.
-        document.addEventListener('keydown', e => {
-            if (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'i' || e.key === 'j')) {
-                e.preventDefault();
-            }
-        });
-
-        // Deteksi Visibility Change (Tab Switch / Perkecil)
-        document.addEventListener('visibilitychange', () => {
-            if (isCheckingCheats && document.visibilityState === 'hidden') {
-                triggerCheatWarning("Meninggalkan Tab Ujian");
-            }
-        });
-
-        // Deteksi Window Blur (Klik di luar browser / Buka Aplikasi Lain)
-        window.addEventListener('blur', () => {
-            if (isCheckingCheats) {
-                triggerCheatWarning("Membuka Aplikasi / Jendela Lain");
-            }
-        });
-
-        // Deteksi Keluar Fullscreen
-        document.addEventListener('fullscreenchange', () => {
-            if (isCheckingCheats && !document.fullscreenElement) {
-                triggerCheatWarning("Keluar dari Mode Layar Penuh");
-            }
-        });
-        document.addEventListener('webkitfullscreenchange', () => {
-            if (isCheckingCheats && !document.webkitFullscreenElement) {
-                triggerCheatWarning("Keluar dari Mode Layar Penuh");
-            }
-        });
-    });
-
-    // Inisialisasi & Cek Cache Sesi
-    function initApp() {
-        try {
-            const cachedSchool = localStorage.getItem('cbt_school_info');
-            const cachedStudent = localStorage.getItem('cbt_student_session');
-            
-            // Cek jika sedang aktif ujian (Kiosk recovery)
-            const activeExamId = localStorage.getItem('cbt_active_exam_id');
-
-            if (cachedSchool) {
-                schoolInfo = JSON.parse(cachedSchool);
-                showStudentLoginPanel();
-                
-                if (cachedStudent) {
-                    studentSession = JSON.parse(cachedStudent);
-                    showDashboardPanel();
-                    
-                    if (activeExamId) {
-                        resumeActiveExam(activeExamId);
-                    }
-                }
-            } else {
-                showSchoolCodePanel();
             }
         } catch(e) {
-            showSchoolCodePanel();
+            schoolInfo = {
+                code: APP_CONFIG.schoolCode,
+                nama_sekolah: APP_CONFIG.schoolName,
+                url_gas: MASTER_GAS_URL,
+                logo: APP_CONFIG.logo
+            };
+            showStudentLoginPanel();
         }
+    }
+
+    // Muat sekolah yang sudah ditetapkan agar pengunjung langsung melihat menu login.
+    async function loadConfiguredSchool() {
+        const configuredSchool = {
+            code: APP_CONFIG.schoolCode,
+            nama_sekolah: APP_CONFIG.schoolName,
+            url_gas: MASTER_GAS_URL,
+            logo: APP_CONFIG.logo
+        };
+
+        try {
+            const url = `${MASTER_GAS_URL}?action=getSchool&code=${encodeURIComponent(APP_CONFIG.schoolCode)}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.status === "success") {
+                configuredSchool.code = data.data.code || APP_CONFIG.schoolCode;
+                configuredSchool.nama_sekolah = APP_CONFIG.schoolName;
+                configuredSchool.url_gas = data.data.url_gas || MASTER_GAS_URL;
+
+                try {
+                    const infoResp = await fetch(`${configuredSchool.url_gas}?action=getSchoolInfo`);
+                    const infoData = await infoResp.json();
+                    if (infoData.status === "success" && infoData.data.logo) {
+                        configuredSchool.logo = infoData.data.logo;
+                    }
+                } catch (e) {
+                    console.log("Logo sekolah menggunakan konfigurasi bawaan", e);
+                }
+            }
+        } catch (e) {
+            console.log("Data sekolah menggunakan konfigurasi bawaan", e);
+        }
+
+        localStorage.setItem('cbt_school_info', JSON.stringify(configuredSchool));
+        return configuredSchool;
     }
 
     // Tampilkan Panel Pertama (Masukkan Kode Sekolah)
@@ -2329,8 +701,6 @@ background: #94a3b8;
     function showStudentLoginPanel() {
         if (!schoolInfo) return;
         $('#login-school-name').text(schoolInfo.nama_sekolah);
-        $('#login-school-code-badge').text(`KODE: ${schoolInfo.code}`);
-        
         if (schoolInfo.logo && schoolInfo.logo.trim() !== "") {
             $('#login-school-logo').attr('src', schoolInfo.logo);
             $('#login-school-logo-container').removeClass('hidden');
@@ -2348,7 +718,7 @@ background: #94a3b8;
         
         $('#dash-school-name').text(schoolInfo.nama_sekolah);
         $('#dash-student-name').text(studentSession.nama);
-        $('#dash-student-details').text(`NISN: ${studentSession.nisn} | KELAS: ${studentSession.kelas}`);
+        $('#dash-student-details').text(`NIS: ${studentSession.nisn} | KELAS: ${studentSession.kelas}`);
         
         if (schoolInfo.logo && schoolInfo.logo.trim() !== "") {
             $('#dash-school-logo').attr('src', schoolInfo.logo);
@@ -2359,7 +729,7 @@ background: #94a3b8;
         }
         
         $('#profile-card-name').text(studentSession.nama);
-        $('#profile-card-nisn').text(`NISN: ${studentSession.nisn}`);
+        $('#profile-card-nisn').text(`NIS: ${studentSession.nisn}`);
         $('#profile-card-kelas').text(studentSession.kelas);
         $('#profile-card-code').text(schoolInfo.code);
 
@@ -2472,13 +842,12 @@ background: #94a3b8;
         const password = document.getElementById('login-password').value.trim();
 
         if (!nisn || !password) {
-            showToast("Harap masukkan NISN & Password!", false);
+            showToast("Harap masukkan NIS & Password!", false);
             return;
         }
 
         if (!schoolInfo) {
-            showToast("Data sekolah hilang. Lakukan verifikasi ulang.", false);
-            showSchoolCodePanel();
+            showToast("Data sekolah belum siap. Silakan muat ulang halaman.", false);
             return;
         }
 
@@ -2723,7 +1092,7 @@ background: #94a3b8;
         // Tampilkan workspace
         $('#work-exam-title').text(currentExam.title);
         $('#work-student-name').text(studentSession.nama);
-        $('#work-student-nisn').text(`NISN: ${studentSession.nisn}`);
+        $('#work-student-nisn').text(`NIS: ${studentSession.nisn}`);
         
         $('#panel-workspace').removeClass('hidden');
         $('#panel-dashboard, #panel-login, #panel-access-code').addClass('hidden');
