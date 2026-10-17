@@ -1174,6 +1174,56 @@ border-radius: 1.25rem !important;
         }
     }
 
+    // Fisher-Yates shuffle: acak urutan soal dan opsi secara merata.
+    function shuffleArray(items) {
+        for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+        }
+        return items;
+    }
+
+    function shuffleExamQuestions(sourceQuestions) {
+        const letters = ['A', 'B', 'C', 'D', 'E'];
+        const questions = JSON.parse(JSON.stringify(Array.isArray(sourceQuestions) ? sourceQuestions : []));
+
+        questions.forEach(q => {
+            const type = String(q.tipe || 'pg').toLowerCase();
+            if (type === 'isian') return;
+
+            // Ambil opsi yang tersedia beserta label asalnya.
+            const options = letters
+                .map(key => ({ oldKey: key, text: q[key.toLowerCase()] }))
+                .filter(option => option.text !== null && option.text !== undefined && String(option.text).trim() !== '');
+            if (options.length < 2) return;
+
+            shuffleArray(options);
+            const oldToNew = {};
+            letters.forEach(key => { q[key.toLowerCase()] = ''; });
+            options.forEach((option, index) => {
+                const newKey = letters[index];
+                q[newKey.toLowerCase()] = option.text;
+                oldToNew[option.oldKey] = newKey;
+            });
+
+            // Remap kunci jawaban agar penilaian tetap benar setelah opsi diacak.
+            const rawKey = String(q.kunci || '').trim();
+            if (rawKey) {
+                if (type === 'kompleks') {
+                    q.kunci = rawKey.split(/[,;|]/).map(part => {
+                        const key = part.trim().toUpperCase();
+                        return oldToNew[key] || part.trim();
+                    }).sort().join(',');
+                } else {
+                    const key = rawKey.toUpperCase();
+                    if (oldToNew[key]) q.kunci = oldToNew[key];
+                }
+            }
+        });
+
+        return shuffleArray(questions);
+    }
+
     // --- 5. WORKSPACE CBT ENGINE (LEMBAR KERJA UJIAN) ---
     function launchExamWorkspace(examId) {
         const exam = examsList.find(e => e.exam_id === examId);
@@ -1184,12 +1234,29 @@ border-radius: 1.25rem !important;
         }
 
         currentExam = exam;
-        currentQuestions = JSON.parse(questionsStr);
         activeQuestionIndex = 0;
+
+        // Acak urutan soal dan opsi sekali untuk setiap sesi ujian.
+        // Sesi aktif disimpan agar refresh/tutup-buka halaman tidak mengubah
+        // huruf jawaban yang sudah dipilih siswa.
+        const sessionQuestionsKey = `cbt_session_questions_${examId}`;
+        const savedStatus = localStorage.getItem(`cbt_status_${examId}`);
+        const savedSessionQuestions = localStorage.getItem(sessionQuestionsKey);
+        const isResumingSession = savedStatus === "ACTIVE" && !!savedSessionQuestions;
+        if (isResumingSession) {
+            currentQuestions = JSON.parse(savedSessionQuestions);
+        } else {
+            currentQuestions = shuffleExamQuestions(JSON.parse(questionsStr));
+            localStorage.setItem(sessionQuestionsKey, JSON.stringify(currentQuestions));
+            // Jangan memakai jawaban dari sesi lama karena label opsi sudah diacak ulang.
+            localStorage.removeItem(`cbt_answers_${examId}`);
+            localStorage.removeItem(`cbt_flags_${examId}`);
+            localStorage.removeItem(`cbt_timer_${examId}`);
+        }
         
-        // Load atau inisialisasi jawaban dan ragu-ragu
-        const savedAns = localStorage.getItem(`cbt_answers_${examId}`);
-        const savedFlags = localStorage.getItem(`cbt_flags_${examId}`);
+        // Load jawaban dan ragu-ragu hanya dari sesi yang sedang dilanjutkan.
+        const savedAns = isResumingSession ? localStorage.getItem(`cbt_answers_${examId}`) : null;
+        const savedFlags = isResumingSession ? localStorage.getItem(`cbt_flags_${examId}`) : null;
         
         currentAnswers = savedAns ? JSON.parse(savedAns) : {};
         doubtfulFlags = savedFlags ? JSON.parse(savedFlags) : {};
