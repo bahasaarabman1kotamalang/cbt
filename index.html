@@ -1205,6 +1205,13 @@ border-radius: 1.25rem !important;
                 q[newKey.toLowerCase()] = option.text;
                 oldToNew[option.oldKey] = newKey;
             });
+            // Simpan pemetaan huruf baru ke huruf asli untuk sinkronisasi ke server.
+            // Penilaian lokal memakai kunci yang sudah di-remap, sedangkan server
+            // kemungkinan masih memakai kunci pada bank soal asli.
+            q._shuffleNewToOld = {};
+            Object.keys(oldToNew).forEach(oldKey => {
+                q._shuffleNewToOld[oldToNew[oldKey]] = oldKey;
+            });
 
             // Remap kunci jawaban agar penilaian tetap benar setelah opsi diacak.
             const rawKey = String(q.kunci || '').trim();
@@ -1663,6 +1670,27 @@ border-radius: 1.25rem !important;
         return correctKey !== "" && correctKey === studentKey;
     }
 
+    // Ubah jawaban dari huruf opsi yang tampil (acak) ke huruf opsi bank soal asli.
+    // Dipakai hanya untuk dikirim ke backend; hasil review tetap memakai versi acak.
+    function convertAnswersForServer(questions, answers) {
+        const converted = {};
+        (Array.isArray(questions) ? questions : []).forEach(q => {
+            const answer = answers && answers[q.id] !== undefined ? String(answers[q.id]) : "";
+            if (!answer || String(q.tipe || "").toLowerCase() === "isian") {
+                converted[q.id] = answer;
+                return;
+            }
+            const map = q._shuffleNewToOld || {};
+            if (String(q.tipe || "").toLowerCase() === "kompleks") {
+                converted[q.id] = answer.split(/[,;|]/).map(k => map[k.trim().toUpperCase()] || k.trim().toUpperCase()).sort().join(',');
+            } else {
+                const key = answer.trim().toUpperCase();
+                converted[q.id] = map[key] || key;
+            }
+        });
+        return converted;
+    }
+
     // Kalkulasi lokal nilai di RAM Client
     function calculateLocalScore() {
         let correct = 0;
@@ -1724,7 +1752,9 @@ border-radius: 1.25rem !important;
             params.append('action', 'submitExam');
             params.append('nisn', studentSession.nisn);
             params.append('examId', currentExam.exam_id);
-            params.append('jawaban', JSON.stringify(answersPayload));
+            // Kirim huruf opsi asli ke server agar penilaian backend tetap cocok
+            // dengan kunci pada bank soal yang belum diacak.
+            params.append('jawaban', JSON.stringify(convertAnswersForServer(currentQuestions, answersPayload)));
             params.append('durasi', durationStr);
             params.append('device_id', `Web Browser (${browserAgent})`);
             params.append('nilai', localScore.toString());
@@ -1809,7 +1839,8 @@ border-radius: 1.25rem !important;
         if (!answersStr || !questionsStr) return;
 
         const answers = JSON.parse(answersStr);
-        const questions = JSON.parse(questionsStr);
+        const sessionQuestionsStr = localStorage.getItem(`cbt_session_questions_${examId}`);
+        const questions = sessionQuestionsStr ? JSON.parse(sessionQuestionsStr) : JSON.parse(questionsStr);
         
         // Kalkulasi skor
         let correct = 0;
@@ -1826,7 +1857,7 @@ border-radius: 1.25rem !important;
             params.append('action', 'submitExam');
             params.append('nisn', studentSession.nisn);
             params.append('examId', examId);
-            params.append('jawaban', answersStr);
+            params.append('jawaban', JSON.stringify(convertAnswersForServer(questions, answers)));
             params.append('durasi', "Sync Offline");
             params.append('device_id', `Web Browser (${navigator.userAgent})`);
             params.append('nilai', localScore.toString());
