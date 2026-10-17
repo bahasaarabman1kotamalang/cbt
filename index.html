@@ -588,12 +588,56 @@ border-radius: 1.25rem !important;
         requestFullScreen();
     }
 
+    // Audio peringatan: tiga rangkaian "tet-tet-tet-tet"
+    // AudioContext baru diaktifkan saat peringatan muncul; browser mungkin
+    // memerlukan interaksi pengguna sebelumnya agar audio diizinkan.
+    let cheatAlarmContext = null;
+    function playCheatWarningSound() {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            if (!cheatAlarmContext) cheatAlarmContext = new AudioCtx();
+
+            const ctx = cheatAlarmContext;
+            const playPattern = () => {
+                const startAt = ctx.currentTime + 0.05;
+                // 4 bunyi pendek, diulang 3 kali dengan jeda antarrangkaian
+                for (let group = 0; group < 3; group++) {
+                    for (let beep = 0; beep < 4; beep++) {
+                        const start = startAt + group * 1.05 + beep * 0.19;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'square';
+                        osc.frequency.setValueAtTime(880, start);
+                        gain.gain.setValueAtTime(0.0001, start);
+                        gain.gain.exponentialRampToValueAtTime(0.18, start + 0.012);
+                        gain.gain.setValueAtTime(0.18, start + 0.09);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.13);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(start);
+                        osc.stop(start + 0.14);
+                    }
+                }
+            };
+
+            if (ctx.state === 'suspended') {
+                ctx.resume().then(playPattern).catch(() => {});
+            } else {
+                playPattern();
+            }
+        } catch (err) {
+            console.warn('Audio peringatan tidak dapat diputar:', err);
+        }
+    }
+
     // Peringatan Kecurangan
     function triggerCheatWarning(reason) {
         if (!isCheckingCheats) return;
         if (!$('#modal-cheat-warning').hasClass('hidden')) return;
 
         cheatCount++;
+        playCheatWarningSound();
         localStorage.setItem(`cbt_cheats_${currentExam.exam_id}`, cheatCount.toString());
         
         document.getElementById('cheat-count-display').innerText = cheatCount;
